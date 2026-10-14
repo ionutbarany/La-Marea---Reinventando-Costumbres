@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Marea - Reinventando Costumbres</title>
+  <meta name="description" content="Carta de La Marea">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- VISTA 1: inicio (cabecera + lista de secciones) -->
+    <div id="view-home">
+      <header class="header">
+        <!-- Aquí irá el logo más adelante -->
+        <h1 class="header__title">La Marea</h1>
+        <p class="header__tagline">Reinventando Costumbres</p>
+      </header>
+
+      <nav aria-label="Secciones de la carta">
+        <ul id="section-list" class="section-list"></ul>
+      </nav>
+    </div>
+
+    <!-- VISTA 2: una sección con sus platos -->
+    <div id="view-section" hidden>
+      <div class="topbar">
+        <a href="#" class="topbar__back" aria-label="Volver a la carta">&larr;</a>
+        <h2 id="section-title" class="topbar__title"></h2>
+      </div>
+
+      <p id="section-note" class="section-note" hidden></p>
+      <ul id="dish-list" class="dish-list"></ul>
+      <p id="section-empty" class="section-empty" hidden>Próximamente.</p>
+    </div>
+
+  </div>
+
+  <script src="menu-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

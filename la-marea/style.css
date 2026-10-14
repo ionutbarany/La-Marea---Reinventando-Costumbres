@@ -1,0 +1,109 @@
+/* Esqueleto: estilos mínimos. El diseño real se hace después. */
+
+:root {
+  --bg: #f5efe3;
+  --ink: #0b2a55;
+  --muted: #5d6b82;
+  --line: #d9d0bd;
+  --card: #fbf8f1;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.4;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+[hidden] { display: none !important; }
+
+/* Cabecera */
+.header {
+  text-align: center;
+  padding: 40px 0 24px;
+}
+.header__title {
+  margin: 0;
+  font-size: 2.5rem;
+  letter-spacing: 0.02em;
+}
+.header__tagline {
+  margin: 4px 0 0;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* Lista de secciones (inicio) */
+.section-list,
+.dish-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.section-list li + li { margin-top: 10px; }
+
+.section-link {
+  display: block;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Barra superior de una sección */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.topbar__back {
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.topbar__title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.section-note,
+.section-empty {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Platos */
+.dish {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.dish__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.dish__name { font-weight: 600; }
+.dish__price { white-space: nowrap; }
+.dish__desc {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
