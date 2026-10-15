@@ -79,8 +79,18 @@ function mostrarVista() {
     viewHome.hidden = false;
   }
   window.scrollTo(0, 0);
+  quitarFoco();
+}
+
+// Evita que un botón se quede "marcado" (sombreado gris) al volver atrás
+// con el gesto del móvil.
+function quitarFoco() {
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
 }
 
 pintarInicio();
 window.addEventListener("hashchange", mostrarVista);
+window.addEventListener("pageshow", quitarFoco);
 mostrarVista();
