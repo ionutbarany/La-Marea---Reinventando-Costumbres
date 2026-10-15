@@ -1,9 +1,8 @@
-// Datos de la carta.
-// Más adelante este archivo se sustituirá por la lectura de una Google Sheet,
-// manteniendo esta misma forma de datos.
+// Respaldo local si Google Sheets no está configurado o falla la red.
+// En producción la carta suele venir de config.js + Apps Script.
 // precio: número en euros (se formatea solo en pantalla)
 
-const MENU = [
+const MENU_FALLBACK = [
   {
     id: "para-compartir",
     nombre: "Para compartir",

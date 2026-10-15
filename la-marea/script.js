@@ -1,6 +1,5 @@
-// Esqueleto de la carta: navegación entre inicio y sección, y pintado de platos.
-// Los textos se insertan con textContent (nunca innerHTML), para que cuando los
-// datos vengan de una hoja de cálculo no se pueda colar HTML.
+// Navegación entre inicio y sección, y pintado de platos.
+// Los textos se insertan con textContent (nunca innerHTML).
 
 const formatoPrecio = new Intl.NumberFormat("es-ES", {
   style: "currency",
@@ -14,6 +13,10 @@ const sectionTitle = document.getElementById("section-title");
 const sectionNote = document.getElementById("section-note");
 const sectionEmpty = document.getElementById("section-empty");
 const dishList = document.getElementById("dish-list");
+const cartaStatus = document.getElementById("carta-status");
+
+let MENU = [];
+let appLista = false;
 
 function pintarInicio() {
   sectionList.replaceChildren();
@@ -67,6 +70,8 @@ function pintarSeccion(seccion) {
 }
 
 function mostrarVista() {
+  if (!appLista) return;
+
   const id = decodeURIComponent(location.hash.slice(1));
   const seccion = MENU.find((s) => s.id === id);
 
@@ -82,15 +87,75 @@ function mostrarVista() {
   quitarFoco();
 }
 
-// Evita que un botón se quede "marcado" (sombreado gris) al volver atrás
-// con el gesto del móvil.
 function quitarFoco() {
   if (document.activeElement && document.activeElement !== document.body) {
     document.activeElement.blur();
   }
 }
 
-pintarInicio();
+function mostrarEstado(mensaje, tipo) {
+  if (!cartaStatus) return;
+  cartaStatus.textContent = mensaje;
+  cartaStatus.hidden = !mensaje;
+  cartaStatus.classList.remove("carta-status--loading", "carta-status--error");
+  if (tipo) cartaStatus.classList.add("carta-status--" + tipo);
+}
+
+function menuValido(datos) {
+  if (!Array.isArray(datos)) return false;
+  return datos.every(
+    (s) =>
+      s &&
+      typeof s.id === "string" &&
+      typeof s.nombre === "string" &&
+      Array.isArray(s.platos) &&
+      s.platos.every(
+        (p) =>
+          p &&
+          typeof p.nombre === "string" &&
+          typeof p.precio === "number" &&
+          !Number.isNaN(p.precio)
+      )
+  );
+}
+
+function iniciarApp() {
+  appLista = true;
+  pintarInicio();
+  mostrarVista();
+}
+
+async function cargarCarta() {
+  const url = typeof CARTA_URL === "string" ? CARTA_URL.trim() : "";
+
+  if (!url) {
+    MENU = MENU_FALLBACK;
+    iniciarApp();
+    return;
+  }
+
+  mostrarEstado("Cargando carta…", "loading");
+  viewHome.hidden = true;
+  viewSection.hidden = true;
+
+  try {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const datos = await res.json();
+    if (!menuValido(datos)) throw new Error("formato");
+    MENU = datos;
+    mostrarEstado("", null);
+    iniciarApp();
+  } catch {
+    MENU = MENU_FALLBACK;
+    mostrarEstado(
+      "No se pudo cargar la carta en línea. Mostrando copia de respaldo.",
+      "error"
+    );
+    iniciarApp();
+  }
+}
+
 window.addEventListener("hashchange", mostrarVista);
 window.addEventListener("pageshow", quitarFoco);
-mostrarVista();
+cargarCarta();

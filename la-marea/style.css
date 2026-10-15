@@ -38,6 +38,21 @@ a, button {
 
 [hidden] { display: none !important; }
 
+.carta-status {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.carta-status--loading {
+  color: var(--muted);
+}
+.carta-status--error {
+  color: #7a2e2e;
+  background: #f8e8e8;
+}
+
 /* Cabecera */
 .header {
   text-align: center;
