@@ -1,7 +1,7 @@
-Sección	Nota
-Para compartir	
-De la casa	
-Burgers	Todas nuestras burgers se sirven con patatas
-Montaditos	
-Dulce final	
-Bebidas	
+Sección	Nota	Visible	Orden
+Para compartir		sí	1
+De la casa		sí	2
+Burgers	Todas nuestras burgers se sirven con patatas	sí	3
+Montaditos		sí	4
+Dulce final		sí	5
+Bebidas		sí	6

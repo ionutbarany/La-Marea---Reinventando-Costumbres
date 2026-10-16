@@ -3,7 +3,8 @@
  * Despliega como aplicación web (solo doGet). Ver CARTA-SHEETS-SETUP.md
  */
 
-const ORDEN_SECCIONES = [
+/** Si la pestaña Secciones está vacía, se usa esta lista (compatibilidad). */
+const ORDEN_SECCIONES_RESPALDO = [
   "Para compartir",
   "De la casa",
   "Burgers",
@@ -11,11 +12,6 @@ const ORDEN_SECCIONES = [
   "Dulce final",
   "Bebidas"
 ];
-
-const MAPA_SECCION = {};
-ORDEN_SECCIONES.forEach(function (nombre) {
-  MAPA_SECCION[normalizarClave(nombre)] = nombre;
-});
 
 function normalizarClave(texto) {
   return String(texto)
@@ -31,9 +27,19 @@ function slugify(texto) {
     .replace(/^-|-$/g, "");
 }
 
-function canonSeccion(texto) {
+function construirMapaSecciones(nombres) {
+  const mapa = {};
+  nombres.forEach(function (nombre) {
+    const clave = normalizarClave(nombre);
+    if (clave && !mapa[clave]) mapa[clave] = nombre;
+  });
+  return mapa;
+}
+
+function canonSeccion(texto, mapaSeccion) {
   const clave = normalizarClave(texto);
-  return MAPA_SECCION[clave] || String(texto).trim();
+  if (mapaSeccion && mapaSeccion[clave]) return mapaSeccion[clave];
+  return String(texto).trim();
 }
 
 function parsePrecio(valor) {
@@ -95,7 +101,46 @@ function leerFilas(hoja) {
   return filas;
 }
 
-function leerPlatosCarta(hoja) {
+function nombresDesdeFilasSecciones(filas) {
+  const nombres = [];
+  filas.forEach(function (r) {
+    const nombre = String(r.seccion || "").trim();
+    if (nombre) nombres.push(nombre);
+  });
+  return nombres;
+}
+
+function leerSeccionesParaMenu(filas) {
+  const items = [];
+
+  filas.forEach(function (r, index) {
+    const nombre = String(r.seccion || "").trim();
+    if (!nombre) return;
+    if (!esVisible(r.visible)) return;
+
+    let orden = index;
+    if (r.orden !== undefined && r.orden !== null && String(r.orden).trim() !== "") {
+      const n = Number(r.orden);
+      if (!isNaN(n)) orden = n;
+    }
+
+    items.push({
+      nombre: nombre,
+      nota: String(r.nota || "").trim(),
+      orden: orden,
+      index: index
+    });
+  });
+
+  items.sort(function (a, b) {
+    if (a.orden !== b.orden) return a.orden - b.orden;
+    return a.index - b.index;
+  });
+
+  return items;
+}
+
+function leerPlatosCarta(hoja, mapaSeccion) {
   if (!hoja) return {};
 
   const rango = hoja.getDataRange();
@@ -119,7 +164,7 @@ function leerPlatosCarta(hoja) {
 
     if (idxVisible >= 0 && !esVisible(fila[idxVisible])) continue;
 
-    const sec = canonSeccion(idxSeccion >= 0 ? fila[idxSeccion] : "");
+    const sec = canonSeccion(idxSeccion >= 0 ? fila[idxSeccion] : "", mapaSeccion);
     const nombrePlato = idxPlato >= 0 ? String(fila[idxPlato] || "").trim() : "";
     if (!sec || !nombrePlato) continue;
 
@@ -147,21 +192,29 @@ function leerPlatosCarta(hoja) {
 
 function doGet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const platosPorSeccion = leerPlatosCarta(ss.getSheetByName("Carta"));
   const filasSecciones = leerFilas(ss.getSheetByName("Secciones"));
 
-  const notasPorNombre = {};
-  filasSecciones.forEach(function (r) {
-    const nombre = canonSeccion(r.seccion || "");
-    if (nombre) notasPorNombre[nombre] = String(r.nota || "").trim();
-  });
+  let nombresParaMapa = nombresDesdeFilasSecciones(filasSecciones);
+  if (nombresParaMapa.length === 0) {
+    nombresParaMapa = ORDEN_SECCIONES_RESPALDO.slice();
+  }
+  const mapaSeccion = construirMapaSecciones(nombresParaMapa);
 
-  const menu = ORDEN_SECCIONES.map(function (nombre) {
+  const platosPorSeccion = leerPlatosCarta(ss.getSheetByName("Carta"), mapaSeccion);
+
+  let seccionesMenu = leerSeccionesParaMenu(filasSecciones);
+  if (seccionesMenu.length === 0 && filasSecciones.length === 0) {
+    seccionesMenu = ORDEN_SECCIONES_RESPALDO.map(function (nombre, index) {
+      return { nombre: nombre, nota: "", orden: index, index: index };
+    });
+  }
+
+  const menu = seccionesMenu.map(function (sec) {
     return {
-      id: slugify(nombre),
-      nombre: nombre,
-      nota: notasPorNombre[nombre] || "",
-      platos: platosPorSeccion[nombre] || []
+      id: slugify(sec.nombre),
+      nombre: sec.nombre,
+      nota: sec.nota || "",
+      platos: platosPorSeccion[sec.nombre] || []
     };
   });
 

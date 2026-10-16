@@ -20,9 +20,14 @@
 
 ### Pestaña **Secciones** (fila 1)
 
-| Sección | Nota |
-|---------|------|
-| Burgers | Todas nuestras burgers se sirven con patatas |
+| Sección | Nota | Visible | Orden |
+|---------|------|---------|-------|
+| Burgers | Todas nuestras burgers se sirven con patatas | sí | 3 |
+
+- **Visible**: `sí` (o vacío) = la sección aparece en el inicio de la carta. `no` = oculta (los platos de esa sección no se ven en la web, pero puedes dejarlos en **Carta**).
+- **Orden**: número opcional para ordenar en el inicio (menor = más arriba). Si lo dejas vacío, se usa el orden de las filas en la hoja.
+- Para **añadir** una sección: nueva fila aquí (nombre exacto que usarás en **Carta**) y luego platos en **Carta**.
+- Para **quitar** una sección un tiempo: **Visible** → `no`. Para volver: `sí`.
 
 Copia desde `plantilla-secciones.tsv` si quieres.
 
@@ -30,10 +35,13 @@ Copia desde `plantilla-secciones.tsv` si quieres.
 
 En **Carta**:
 
-1. Columna **Sección** (desde A2): Datos → Validación de datos → Lista desplegable:
-   `Para compartir, De la casa, Burgers, Montaditos, Dulce final, Bebidas`
+1. Columna **Sección** (desde A2): Datos → Validación de datos → **Lista de un rango** → `=Secciones!A2:A` (así, al añadir filas en **Secciones**, el desplegable se actualiza solo). Si prefieres lista fija, puedes seguir usando nombres separados por comas.
 2. Columna **Precio**: escribe con **coma** decimal (`8,5` no `8.5`). Formato → **Número** (nunca Fecha).
 3. Columna **Visible**: lista `sí, no`.
+
+En **Secciones**:
+
+1. Columna **Visible**: lista `sí, no` (misma lógica que en **Carta**).
 
 ### Si los precios salen como 46.150,00 o números enormes
 
@@ -105,14 +113,20 @@ Tras el deploy, recarga la carta en el móvil. Cambia un precio en Sheets, esper
 
 ## 8. Uso diario del dueño
 
-| Quiero… | Qué hacer en **Carta** |
-|--------|-------------------------|
-| Cambiar precio | Editar columna **Precio** |
-| Cambiar nombre o descripción | Editar **Plato** / **Descripción** |
-| Ocultar temporalmente | **Visible** → `no` |
-| Quitar para siempre | Borrar la fila |
-| Añadir plato | Nueva fila: elegir **Sección**, rellenar resto, **Visible** = sí |
-| Nota bajo el título (burgers…) | Pestaña **Secciones**, columna **Nota** |
+| Quiero… | Dónde |
+|--------|--------|
+| Cambiar precio | **Carta** → **Precio** |
+| Cambiar nombre o descripción del plato | **Carta** → **Plato** / **Descripción** |
+| Ocultar un plato temporalmente | **Carta** → **Visible** → `no` |
+| Quitar un plato para siempre | **Carta** → borrar la fila |
+| Añadir plato | **Carta** → nueva fila (sección del desplegable, **Visible** = sí) |
+| Nota bajo el título de una sección | **Secciones** → **Nota** |
+| Ocultar una sección entera (ej. Burgers) | **Secciones** → **Visible** → `no` |
+| Volver a mostrar una sección | **Secciones** → **Visible** → `sí` |
+| Añadir una sección nueva | **Secciones** → nueva fila con nombre; luego platos en **Carta** |
+| Cambiar el orden en el inicio | **Secciones** → columna **Orden** (o reordenar filas) |
+
+**Importante:** tras actualizar el script en Google (sección 9), añade las columnas **Visible** y **Orden** en **Secciones** si aún no las tienes (puedes pegar de nuevo `plantilla-secciones.tsv` o añadir cabeceras en la fila 1).
 
 ## 9. Si cambias el código del script
 
