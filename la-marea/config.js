@@ -2,4 +2,4 @@
 // Créala siguiendo google-sheets/CARTA-SHEETS-SETUP.md
 // Déjala vacía ("") para usar solo menu-data.js (útil en local sin Google).
 const CARTA_URL =
-  "https://script.google.com/macros/s/AKfycby8aPzREIyaNikNaaJOhg_AJxj-OuFUsdaWjseyWM8TXCxEK77Ip68NZTl5gVtF6X-i/exec";
+  "https://script.google.com/macros/s/AKfycbwfFRH1YV5AyiB-IR8CTMo4gcsfpDIohRT1lv9jL_EeSEZCTdp0fU2gpgaq-K3RZLZN/exec";

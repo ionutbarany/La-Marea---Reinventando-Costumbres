@@ -11,11 +11,12 @@
 
 ### Pestaña **Carta** (fila 1)
 
-| Sección | Plato | Descripción | Precio | Visible |
-|---------|-------|-------------|--------|---------|
-| Para compartir | Torrezno de la casa | Puré de patata... | 12.5 | sí |
+| Sección | Plato | Alérgenos | Descripción | Precio | Visible |
+|---------|-------|-----------|-------------|--------|---------|
+| Para compartir | Torrezno de la casa | gluten, lácteos | Puré de patata... | 12.5 | sí |
 
 - Puedes copiar y pegar desde `plantilla-carta.tsv` (archivo de esta carpeta) en la celda A1.
+- **Alérgenos**: texto libre (ej. `gluten, lácteos, huevo`). Si lo dejas vacío, en la web no se muestra nada junto al nombre.
 - **Visible**: `sí` (o vacío) = se muestra en la web. `no` = oculto pero la fila sigue en la hoja. Para quitar del todo, borra la fila.
 
 ### Pestaña **Secciones** (fila 1)
@@ -47,11 +48,11 @@ En **Secciones**:
 
 Eso pasa cuando Sheets guardó la celda como **fecha** (muy habitual al pegar `8.5` con punto en España). Hay que **volver a poner los precios**:
 
-1. Selecciona **D2:D** (solo precios, sin la cabecera).
+1. Selecciona **E2:E** (solo precios, sin la cabecera; columna **Precio**).
 2. **Supr** para borrar.
 3. Menú **Formato → Número → Número** (2 decimales).
 4. Abre `plantilla-carta.tsv`, copia **solo la columna Precio** (desde `12,5` hasta el final) o copia de nuevo toda la plantilla en A1.
-5. En D2: **Pegar** (los valores deben verse como `8,50`, `12,50`, etc., no como 46.xxx).
+5. En E2: **Pegar** (los valores deben verse como `8,50`, `12,50`, etc., no como 46.xxx).
 6. Al editar a mano, usa siempre coma: `9,5` + Enter.
 
 Los precios correctos en carta de restaurante suelen estar entre **4** y **25**. Si ves miles, la columna sigue mal.
@@ -117,6 +118,7 @@ Tras el deploy, recarga la carta en el móvil. Cambia un precio en Sheets, esper
 |--------|--------|
 | Cambiar precio | **Carta** → **Precio** |
 | Cambiar nombre o descripción del plato | **Carta** → **Plato** / **Descripción** |
+| Indicar alérgenos (junto al nombre en la web) | **Carta** → **Alérgenos** |
 | Ocultar un plato temporalmente | **Carta** → **Visible** → `no` |
 | Quitar un plato para siempre | **Carta** → borrar la fila |
 | Añadir plato | **Carta** → nueva fila (sección del desplegable, **Visible** = sí) |

@@ -160,10 +160,20 @@ a, button {
   justify-content: space-between;
   gap: 16px;
 }
+.dish__title {
+  flex: 1;
+  min-width: 0;
+}
 .dish__name {
   font-family: var(--font-title);
   font-size: 1.05rem;
   font-weight: 600;
+}
+.dish__allergens {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
 }
 .dish__price {
   white-space: nowrap;

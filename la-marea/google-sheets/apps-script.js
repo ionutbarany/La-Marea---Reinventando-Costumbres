@@ -152,6 +152,7 @@ function leerPlatosCarta(hoja, mapaSeccion) {
   const idxSeccion = indiceColumna(cabeceras, "seccion");
   const idxPlato = indiceColumna(cabeceras, "plato");
   const idxDescripcion = indiceColumna(cabeceras, "descripcion");
+  const idxAlergenos = indiceColumna(cabeceras, "alergenos");
   const idxPrecio = indiceColumna(cabeceras, "precio");
   const idxVisible = indiceColumna(cabeceras, "visible");
 
@@ -178,13 +179,19 @@ function leerPlatosCarta(hoja, mapaSeccion) {
     const descripcion = idxDescripcion >= 0
       ? String(fila[idxDescripcion] || "").trim()
       : "";
+    const alergenos = idxAlergenos >= 0
+      ? String(fila[idxAlergenos] || "").trim()
+      : "";
 
-    if (!platosPorSeccion[sec]) platosPorSeccion[sec] = [];
-    platosPorSeccion[sec].push({
+    const plato = {
       nombre: nombrePlato,
       descripcion: descripcion,
       precio: precio
-    });
+    };
+    if (alergenos) plato.alergenos = alergenos;
+
+    if (!platosPorSeccion[sec]) platosPorSeccion[sec] = [];
+    platosPorSeccion[sec].push(plato);
   }
 
   return platosPorSeccion;

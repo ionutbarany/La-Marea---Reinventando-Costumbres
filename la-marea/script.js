@@ -38,15 +38,28 @@ function crearPlato(plato) {
   const fila = document.createElement("div");
   fila.className = "dish__row";
 
+  const titulo = document.createElement("span");
+  titulo.className = "dish__title";
+
   const nombre = document.createElement("span");
   nombre.className = "dish__name";
   nombre.textContent = plato.nombre;
+  titulo.appendChild(nombre);
+
+  const textoAlergenos =
+    typeof plato.alergenos === "string" ? plato.alergenos.trim() : "";
+  if (textoAlergenos) {
+    const alergenos = document.createElement("span");
+    alergenos.className = "dish__allergens";
+    alergenos.textContent = " · " + textoAlergenos;
+    titulo.appendChild(alergenos);
+  }
 
   const precio = document.createElement("span");
   precio.className = "dish__price";
   precio.textContent = formatoPrecio.format(plato.precio);
 
-  fila.append(nombre, precio);
+  fila.append(titulo, precio);
   li.appendChild(fila);
 
   if (plato.descripcion) {
@@ -109,13 +122,20 @@ function menuValido(datos) {
       typeof s.id === "string" &&
       typeof s.nombre === "string" &&
       Array.isArray(s.platos) &&
-      s.platos.every(
-        (p) =>
-          p &&
-          typeof p.nombre === "string" &&
-          typeof p.precio === "number" &&
-          !Number.isNaN(p.precio)
-      )
+      s.platos.every((p) => {
+        if (
+          !p ||
+          typeof p.nombre !== "string" ||
+          typeof p.precio !== "number" ||
+          Number.isNaN(p.precio)
+        ) {
+          return false;
+        }
+        if (p.alergenos !== undefined && typeof p.alergenos !== "string") {
+          return false;
+        }
+        return true;
+      })
   );
 }
 
