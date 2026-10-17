@@ -1,7 +1,7 @@
-Sección	Nota	Visible	Orden
-Para compartir		sí	1
-De la casa		sí	2
-Burgers	Todas nuestras burgers se sirven con patatas	sí	3
-Montaditos		sí	4
-Dulce final		sí	5
-Bebidas		sí	6
+Sección	Nota	Visible	Orden	Sección EN	Nota EN
+Para compartir		sí	1	To share	
+De la casa		sí	2	House favourites	
+Burgers	Todas nuestras burgers se sirven con patatas	sí	3	Burgers	All our burgers are served with fries
+Montaditos		sí	4	Montaditos	
+Dulce final		sí	5	Desserts	
+Bebidas		sí	6	Drinks	

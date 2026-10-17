@@ -15,13 +15,16 @@
     <!-- VISTA 1: inicio (cabecera + lista de secciones) -->
     <div id="view-home">
       <header class="header">
-        <h1 class="header__logo">
-          <img src="img/logo.png" width="1000" height="394"
-               alt="La Marea - Reinventando Costumbres">
-        </h1>
+        <div class="header__row">
+          <button type="button" id="lang-toggle" class="lang-toggle">EN</button>
+          <h1 class="header__logo">
+            <img src="img/logo.png" width="1000" height="394"
+                 alt="La Marea - Reinventando Costumbres">
+          </h1>
+        </div>
       </header>
 
-      <nav aria-label="Secciones de la carta">
+      <nav id="nav-secciones" aria-label="Secciones de la carta">
         <ul id="section-list" class="section-list"></ul>
       </nav>
     </div>
@@ -35,7 +38,7 @@
 
       <p id="section-note" class="section-note" hidden></p>
       <ul id="dish-list" class="dish-list"></ul>
-      <p id="section-empty" class="section-empty" hidden>Próximamente.</p>
+      <p id="section-empty" class="section-empty" hidden></p>
     </div>
 
   </div>

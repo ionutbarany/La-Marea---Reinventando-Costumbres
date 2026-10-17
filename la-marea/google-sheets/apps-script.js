@@ -124,9 +124,14 @@ function leerSeccionesParaMenu(filas) {
       if (!isNaN(n)) orden = n;
     }
 
+    const nombreEn = String(r["seccion en"] || "").trim();
+    const notaEn = String(r["nota en"] || "").trim();
+
     items.push({
       nombre: nombre,
+      nombreEn: nombreEn,
       nota: String(r.nota || "").trim(),
+      notaEn: notaEn,
       orden: orden,
       index: index
     });
@@ -153,6 +158,9 @@ function leerPlatosCarta(hoja, mapaSeccion) {
   const idxPlato = indiceColumna(cabeceras, "plato");
   const idxDescripcion = indiceColumna(cabeceras, "descripcion");
   const idxAlergenos = indiceColumna(cabeceras, "alergenos");
+  const idxPlatoEn = indiceColumna(cabeceras, "plato en");
+  const idxDescripcionEn = indiceColumna(cabeceras, "descripcion en");
+  const idxAlergenosEn = indiceColumna(cabeceras, "alergenos en");
   const idxPrecio = indiceColumna(cabeceras, "precio");
   const idxVisible = indiceColumna(cabeceras, "visible");
 
@@ -182,6 +190,15 @@ function leerPlatosCarta(hoja, mapaSeccion) {
     const alergenos = idxAlergenos >= 0
       ? String(fila[idxAlergenos] || "").trim()
       : "";
+    const nombreEn = idxPlatoEn >= 0
+      ? String(fila[idxPlatoEn] || "").trim()
+      : "";
+    const descripcionEn = idxDescripcionEn >= 0
+      ? String(fila[idxDescripcionEn] || "").trim()
+      : "";
+    const alergenosEn = idxAlergenosEn >= 0
+      ? String(fila[idxAlergenosEn] || "").trim()
+      : "";
 
     const plato = {
       nombre: nombrePlato,
@@ -189,6 +206,9 @@ function leerPlatosCarta(hoja, mapaSeccion) {
       precio: precio
     };
     if (alergenos) plato.alergenos = alergenos;
+    if (nombreEn) plato.nombreEn = nombreEn;
+    if (descripcionEn) plato.descripcionEn = descripcionEn;
+    if (alergenosEn) plato.alergenosEn = alergenosEn;
 
     if (!platosPorSeccion[sec]) platosPorSeccion[sec] = [];
     platosPorSeccion[sec].push(plato);
@@ -217,12 +237,15 @@ function doGet() {
   }
 
   const menu = seccionesMenu.map(function (sec) {
-    return {
+    const item = {
       id: slugify(sec.nombre),
       nombre: sec.nombre,
       nota: sec.nota || "",
       platos: platosPorSeccion[sec.nombre] || []
     };
+    if (sec.nombreEn) item.nombreEn = sec.nombreEn;
+    if (sec.notaEn) item.notaEn = sec.notaEn;
+    return item;
   });
 
   return ContentService.createTextOutput(JSON.stringify(menu)).setMimeType(

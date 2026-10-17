@@ -11,19 +11,20 @@
 
 ### Pestaña **Carta** (fila 1)
 
-| Sección | Plato | Alérgenos | Descripción | Precio | Visible |
-|---------|-------|-----------|-------------|--------|---------|
-| Para compartir | Torrezno de la casa | gluten, lácteos | Puré de patata... | 12.5 | sí |
+| Sección | Plato | Alérgenos | Descripción | Precio | Visible | Plato EN | Descripción EN | Alérgenos EN |
+|---------|-------|-----------|-------------|--------|---------|----------|----------------|--------------|
+| Para compartir | Torrezno de la casa | gluten, lácteos | Puré de patata... | 12.5 | sí | House torrezno | Potato purée... | gluten, dairy |
 
 - Puedes copiar y pegar desde `plantilla-carta.tsv` (archivo de esta carpeta) en la celda A1.
 - **Alérgenos**: texto libre (ej. `gluten, lácteos, huevo`). Si lo dejas vacío, en la web no se muestra nada junto al nombre.
 - **Visible**: `sí` (o vacío) = se muestra en la web. `no` = oculto pero la fila sigue en la hoja. Para quitar del todo, borra la fila.
+- **Plato EN / Descripción EN / Alérgenos EN**: opcionales. La web tiene botón **EN**; si una celda en inglés está vacía, se muestra el texto en español. Puedes ocultar estas columnas en Sheets si molestan en pantalla.
 
 ### Pestaña **Secciones** (fila 1)
 
-| Sección | Nota | Visible | Orden |
-|---------|------|---------|-------|
-| Burgers | Todas nuestras burgers se sirven con patatas | sí | 3 |
+| Sección | Nota | Visible | Orden | Sección EN | Nota EN |
+|---------|------|---------|-------|------------|---------|
+| Burgers | Todas nuestras burgers se sirven con patatas | sí | 3 | Burgers | All our burgers are served with fries |
 
 - **Visible**: `sí` (o vacío) = la sección aparece en el inicio de la carta. `no` = oculta (los platos de esa sección no se ven en la web, pero puedes dejarlos en **Carta**).
 - **Orden**: número opcional para ordenar en el inicio (menor = más arriba). Si lo dejas vacío, se usa el orden de las filas en la hoja.
@@ -31,6 +32,16 @@
 - Para **quitar** una sección un tiempo: **Visible** → `no`. Para volver: `sí`.
 
 Copia desde `plantilla-secciones.tsv` si quieres.
+
+### Inglés automático con fórmulas (opcional)
+
+Si no quieres escribir el inglés a mano, puedes usar **GOOGLETRANSLATE** en las columnas EN (misma fila que el español). Ejemplos (ajusta la letra de columna si cambias el orden):
+
+- **Carta**, celda **G2** (Plato EN): `=IF(B2=""; ""; GOOGLETRANSLATE(B2; "es"; "en"))`
+- **Carta**, celda **H2** (Descripción EN): `=IF(D2=""; ""; GOOGLETRANSLATE(D2; "es"; "en"))`
+- **Secciones**, celda **E2** (Sección EN): `=IF(A2=""; ""; GOOGLETRANSLATE(A2; "es"; "en"))`
+
+Arrastra la fórmula hacia abajo. Si un plato queda mal traducido, **borra la fórmula** en esa celda y escribe el texto fijo en inglés.
 
 ## 3. Validaciones (recomendado)
 
@@ -127,8 +138,9 @@ Tras el deploy, recarga la carta en el móvil. Cambia un precio en Sheets, esper
 | Volver a mostrar una sección | **Secciones** → **Visible** → `sí` |
 | Añadir una sección nueva | **Secciones** → nueva fila con nombre; luego platos en **Carta** |
 | Cambiar el orden en el inicio | **Secciones** → columna **Orden** (o reordenar filas) |
+| Texto en inglés en la web | **Carta** / **Secciones** → columnas **… EN** (o fórmulas GOOGLETRANSLATE) |
 
-**Importante:** tras actualizar el script en Google (sección 9), añade las columnas **Visible** y **Orden** en **Secciones** si aún no las tienes (puedes pegar de nuevo `plantilla-secciones.tsv` o añadir cabeceras en la fila 1).
+**Importante:** si actualizas el script en Google (sección 9), pega de nuevo las plantillas o añade en la fila 1 las columnas **Plato EN**, **Descripción EN**, **Alérgenos EN** en **Carta** y **Sección EN**, **Nota EN** en **Secciones**. Luego **Implementar → Nueva implementación** (o gestionar la implementación existente) para que la web reciba el JSON con inglés.
 
 ## 9. Si cambias el código del script
 

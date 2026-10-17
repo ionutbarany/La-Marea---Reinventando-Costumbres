@@ -1,29 +1,29 @@
-Sección	Plato	Alérgenos	Descripción	Precio	Visible
-Para compartir	Torrezno de la casa		Puré de patata, pimientos de Padrón	12,5	sí
-Para compartir	Bravas		Crujientes, nuestra salsa brava	8,5	sí
-Para compartir	Ensaladilla rusa		Huevo poché, pan cristal	8,5	sí
-Para compartir	Tosta de sardina ahumada		Tomate seco, aceite de hierbas	9,5	sí
-Para compartir	Gambones crujientes		Panko, mayonesa cítrica	11,5	sí
-Para compartir	Rejos		Lima, albahaca	10,5	sí
-Para compartir	Bacalao en tempura		Mayonesa de pimiento rojo asado	11,5	sí
-Para compartir	Titaina del Cabanyal		Pan cristal tostado	9,5	sí
-Para compartir	Bao de calamar crujiente		Salsa de la casa	10,5	sí
-De la casa	Huevos rotos con pulpo		Patata, huevo y pulpo	14,5	sí
-De la casa	Jachapuri		Receta tradicional georgiana, queso y huevo	13,5	sí
-De la casa	Pinsa burrata		Burrata, tomate seco, albahaca	14,5	sí
-De la casa	Steak tartar		Brioche tostado	16,5	sí
-De la casa	Crujiente de alga		Salmón, aguacate, queso crema y sriracha	12,5	sí
-De la casa	Foie, patata y sobrasada		Nuestra combinación de sabores	13,5	sí
-Burgers	Angus ahumada		Angus, scamorza ahumada, bacon, rúcula, cebolla caramelizada, brioche	15,5	sí
-Burgers	Crispy chicken		Pollo crujiente, queso, lechuga, salsa de la casa, brioche	14,5	sí
-Burgers	Veggie		Burger vegetal, queso, vegetales, salsa de la casa, brioche	14	sí
-Montaditos	Secreto ibérico			5,5	sí
-Montaditos	Presa ibérica			5,5	sí
-Montaditos	Pulpo			6,5	sí
-Montaditos	Foie & manzana			6	sí
-Montaditos	Escalivada & brie			5,5	sí
-Montaditos	Sobrasada, cabra & miel			5,5	sí
-Montaditos	Tabla de 3 montaditos		Elige tus tres favoritos	15	sí
-Dulce final	Torrija de brioche		Helado de leche merengada	6,5	sí
-Dulce final	Tarta de queso			6	sí
-Dulce final	Brownie		Helado de vainilla	6	sí
+Sección	Plato	Alérgenos	Descripción	Precio	Visible	Plato EN	Descripción EN	Alérgenos EN
+Para compartir	Torrezno de la casa		Puré de patata, pimientos de Padrón	12,5	sí	House torrezno	Potato purée, Padrón peppers	
+Para compartir	Bravas		Crujientes, nuestra salsa brava	8,5	sí	Bravas	Crispy, our brava sauce	
+Para compartir	Ensaladilla rusa		Huevo poché, pan cristal	8,5	sí	Russian salad	Poached egg, crystal bread	
+Para compartir	Tosta de sardina ahumada		Tomate seco, aceite de hierbas	9,5	sí	Smoked sardine toast	Sun-dried tomato, herb oil	
+Para compartir	Gambones crujientes		Panko, mayonesa cítrica	11,5	sí	Crispy prawns	Panko, citrus mayonnaise	
+Para compartir	Rejos		Lima, albahaca	10,5	sí	Rejos	Lime, basil	
+Para compartir	Bacalao en tempura		Mayonesa de pimiento rojo asado	11,5	sí	Cod tempura	Roasted red pepper mayonnaise	
+Para compartir	Titaina del Cabanyal		Pan cristal tostado	9,5	sí	Titaina del Cabanyal	Toasted crystal bread	
+Para compartir	Bao de calamar crujiente		Salsa de la casa	10,5	sí	Crispy squid bao	House sauce	
+De la casa	Huevos rotos con pulpo		Patata, huevo y pulpo	14,5	sí	Broken eggs with octopus	Potato, egg and octopus	
+De la casa	Jachapuri		Receta tradicional georgiana, queso y huevo	13,5	sí	Khachapuri	Traditional Georgian recipe, cheese and egg	
+De la casa	Pinsa burrata		Burrata, tomate seco, albahaca	14,5	sí	Burrata pinsa	Burrata, sun-dried tomato, basil	
+De la casa	Steak tartar		Brioche tostado	16,5	sí	Steak tartare	Toasted brioche	
+De la casa	Crujiente de alga		Salmón, aguacate, queso crema y sriracha	12,5	sí	Seaweed crisp	Salmon, avocado, cream cheese and sriracha	
+De la casa	Foie, patata y sobrasada		Nuestra combinación de sabores	13,5	sí	Foie, potato and sobrasada	Our flavour combination	
+Burgers	Angus ahumada		Angus, scamorza ahumada, bacon, rúcula, cebolla caramelizada, brioche	15,5	sí	Smoked Angus	Angus, smoked scamorza, bacon, rocket, caramelised onion, brioche	
+Burgers	Crispy chicken		Pollo crujiente, queso, lechuga, salsa de la casa, brioche	14,5	sí	Crispy chicken	Crispy chicken, cheese, lettuce, house sauce, brioche	
+Burgers	Veggie		Burger vegetal, queso, vegetales, salsa de la casa, brioche	14	sí	Veggie	Plant-based burger, cheese, vegetables, house sauce, brioche	
+Montaditos	Secreto ibérico			5,5	sí	Iberian secreto		
+Montaditos	Presa ibérica			5,5	sí	Iberian presa		
+Montaditos	Pulpo			6,5	sí	Octopus		
+Montaditos	Foie & manzana			6	sí	Foie & apple		
+Montaditos	Escalivada & brie			5,5	sí	Escalivada & brie		
+Montaditos	Sobrasada, cabra & miel			5,5	sí	Sobrasada, goat cheese & honey		
+Montaditos	Tabla de 3 montaditos		Elige tus tres favoritos	15	sí	Board of 3 montaditos	Choose your three favourites	
+Dulce final	Torrija de brioche		Helado de leche merengada	6,5	sí	Brioche torrija	Meringued milk ice cream	
+Dulce final	Tarta de queso			6	sí	Cheesecake		
+Dulce final	Brownie		Helado de vainilla	6	sí	Brownie	Vanilla ice cream	
