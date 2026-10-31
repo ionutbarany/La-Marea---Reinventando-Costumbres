@@ -1,5 +1,6 @@
 // Navegación entre inicio y sección, y pintado de platos.
 // Los textos se insertan con textContent (nunca innerHTML).
+// Una sección puede llevar grupos (títulos), y un plato puede llevar varios precios.
 
 const LANG_KEY = "la-marea-lang";
 
@@ -359,13 +360,7 @@ function pintarInicio() {
   });
 }
 
-function crearPlato(plato) {
-  const li = document.createElement("li");
-  li.className = "dish";
-
-  const fila = document.createElement("div");
-  fila.className = "dish__row";
-
+function crearTituloPlato(plato) {
   const titulo = document.createElement("span");
   titulo.className = "dish__title";
 
@@ -382,19 +377,93 @@ function crearPlato(plato) {
     titulo.appendChild(alergenos);
   }
 
+  return titulo;
+}
+
+function anadirDescripcion(li, plato) {
+  const descripcion = textoCampo(plato, "descripcion", "descripcionEn");
+  if (!descripcion) return;
+  const desc = document.createElement("p");
+  desc.className = "dish__desc";
+  desc.textContent = descripcion;
+  li.appendChild(desc);
+}
+
+function crearPlato(plato) {
+  const li = document.createElement("li");
+  li.className = "dish";
+
+  const fila = document.createElement("div");
+  fila.className = "dish__row";
+  fila.appendChild(crearTituloPlato(plato));
+
+  const precios = Array.isArray(plato.precios) ? plato.precios : null;
+  if (precios && precios.length) {
+    li.appendChild(fila);
+
+    const lista = document.createElement("ul");
+    lista.className = "dish__sizes";
+    precios.forEach((tamano) => {
+      const item = document.createElement("li");
+      item.className = "dish__size";
+
+      const etiqueta = document.createElement("span");
+      etiqueta.className = "dish__size-name";
+      etiqueta.textContent = textoCampo(tamano, "nombre", "nombreEn");
+
+      const precio = document.createElement("span");
+      precio.className = "dish__price";
+      precio.textContent = textoPrecio(tamano.precio);
+
+      item.append(etiqueta, precio);
+      lista.appendChild(item);
+    });
+    li.appendChild(lista);
+    anadirDescripcion(li, plato);
+    return li;
+  }
+
   const precio = document.createElement("span");
   precio.className = "dish__price";
-  precio.textContent = formatoPrecio().format(plato.precio);
-
-  fila.append(titulo, precio);
+  precio.textContent = textoPrecio(plato.precio);
+  fila.appendChild(precio);
   li.appendChild(fila);
+  anadirDescripcion(li, plato);
+  return li;
+}
 
-  const descripcion = textoCampo(plato, "descripcion", "descripcionEn");
-  if (descripcion) {
-    const desc = document.createElement("p");
-    desc.className = "dish__desc";
-    desc.textContent = descripcion;
-    li.appendChild(desc);
+function crearGrupo(grupo, nivel) {
+  const li = document.createElement("li");
+  const anidado = nivel > 1;
+  li.className = anidado ? "menu-subgroup" : "menu-group";
+
+  const titulo = document.createElement(anidado ? "h4" : "h3");
+  titulo.className = anidado ? "menu-subgroup__title" : "menu-group__title";
+  titulo.textContent = textoCampo(grupo, "nombre", "nombreEn");
+  li.appendChild(titulo);
+
+  const nota = textoCampo(grupo, "nota", "notaEn");
+  if (nota) {
+    const p = document.createElement("p");
+    p.className = "menu-group__note";
+    p.textContent = nota;
+    li.appendChild(p);
+  }
+
+  const subgrupos = Array.isArray(grupo.grupos) ? grupo.grupos : [];
+  if (subgrupos.length) {
+    const ul = document.createElement("ul");
+    ul.className = "menu-subgroups";
+    subgrupos.forEach((sub) => ul.appendChild(crearGrupo(sub, nivel + 1)));
+    li.appendChild(ul);
+  }
+
+  const platos = Array.isArray(grupo.platos) ? grupo.platos : [];
+  if (platos.length) {
+    const ul = document.createElement("ul");
+    ul.className = "dish-list";
+    platos.forEach((plato) => ul.appendChild(crearPlato(plato)));
+    li.appendChild(ul);
   }
 
   return li;
@@ -407,8 +476,14 @@ function pintarSeccion(seccion) {
   sectionNote.textContent = nota;
   sectionNote.hidden = !nota;
 
-  dishList.replaceChildren(...seccion.platos.map(crearPlato));
-  sectionEmpty.hidden = seccion.platos.length > 0;
+  const nodos = [];
+  const grupos = Array.isArray(seccion.grupos) ? seccion.grupos : [];
+  const platos = Array.isArray(seccion.platos) ? seccion.platos : [];
+  grupos.forEach((grupo) => nodos.push(crearGrupo(grupo, 1)));
+  platos.forEach((plato) => nodos.push(crearPlato(plato)));
+
+  dishList.replaceChildren(...nodos);
+  sectionEmpty.hidden = nodos.length > 0;
 }
 
 function mostrarVista() {
@@ -454,34 +529,65 @@ function campoOpcionalString(valor) {
   return valor === undefined || typeof valor === "string";
 }
 
+function precioValido(precio) {
+  if (typeof precio === "number") return !Number.isNaN(precio);
+  return typeof precio === "string" && precio.trim() !== "";
+}
+
+function textoPrecio(precio) {
+  if (typeof precio === "number") return formatoPrecio().format(precio);
+  return String(precio).trim();
+}
+
+function tamanoValido(t) {
+  if (!t || typeof t.nombre !== "string" || !t.nombre.trim()) return false;
+  if (!campoOpcionalString(t.nombreEn)) return false;
+  return precioValido(t.precio);
+}
+
+function platoValido(p) {
+  if (!p || typeof p.nombre !== "string") return false;
+  if (p.alergenos !== undefined && typeof p.alergenos !== "string") return false;
+  if (!campoOpcionalString(p.nombreEn)) return false;
+  if (!campoOpcionalString(p.descripcionEn)) return false;
+  if (!campoOpcionalString(p.alergenosEn)) return false;
+  if (Array.isArray(p.precios)) {
+    return p.precios.length > 0 && p.precios.every(tamanoValido);
+  }
+  return precioValido(p.precio);
+}
+
+function grupoValido(g) {
+  if (!g || typeof g.nombre !== "string" || !g.nombre.trim()) return false;
+  if (!campoOpcionalString(g.nombreEn)) return false;
+  if (!campoOpcionalString(g.nota)) return false;
+  if (!campoOpcionalString(g.notaEn)) return false;
+  const tienePlatos = Array.isArray(g.platos);
+  const tieneGrupos = Array.isArray(g.grupos);
+  if (!tienePlatos && !tieneGrupos) return false;
+  if (tienePlatos && !g.platos.every(platoValido)) return false;
+  if (tieneGrupos && !g.grupos.every(grupoValido)) return false;
+  const nPlatos = tienePlatos ? g.platos.length : 0;
+  const nGrupos = tieneGrupos ? g.grupos.length : 0;
+  return nPlatos + nGrupos > 0;
+}
+
 function menuValido(datos) {
   if (!Array.isArray(datos)) return false;
-  return datos.every(
-    (s) =>
-      s &&
-      typeof s.id === "string" &&
-      typeof s.nombre === "string" &&
-      campoOpcionalString(s.nombreEn) &&
-      campoOpcionalString(s.notaEn) &&
-      Array.isArray(s.platos) &&
-      s.platos.every((p) => {
-        if (
-          !p ||
-          typeof p.nombre !== "string" ||
-          typeof p.precio !== "number" ||
-          Number.isNaN(p.precio)
-        ) {
-          return false;
-        }
-        if (p.alergenos !== undefined && typeof p.alergenos !== "string") {
-          return false;
-        }
-        if (!campoOpcionalString(p.nombreEn)) return false;
-        if (!campoOpcionalString(p.descripcionEn)) return false;
-        if (!campoOpcionalString(p.alergenosEn)) return false;
-        return true;
-      })
-  );
+  return datos.every((s) => {
+    if (!s || typeof s.id !== "string" || typeof s.nombre !== "string") {
+      return false;
+    }
+    if (!campoOpcionalString(s.nombreEn) || !campoOpcionalString(s.notaEn)) {
+      return false;
+    }
+    const tienePlatos = Array.isArray(s.platos);
+    const tieneGrupos = Array.isArray(s.grupos);
+    if (!tienePlatos && !tieneGrupos) return false;
+    if (tienePlatos && !s.platos.every(platoValido)) return false;
+    if (tieneGrupos && !s.grupos.every(grupoValido)) return false;
+    return true;
+  });
 }
 
 function iniciarApp() {

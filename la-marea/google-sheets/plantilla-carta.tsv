@@ -1,29 +1,125 @@
-Sección	Plato	Alérgenos	Descripción	Precio	Visible	Plato EN	Descripción EN	Alérgenos EN
-Para compartir	Torrezno de la casa		Puré de patata, pimientos de Padrón	12,5	sí	House torrezno	Potato purée, Padrón peppers	
-Para compartir	Bravas		Crujientes, nuestra salsa brava	8,5	sí	Bravas	Crispy, our brava sauce	
-Para compartir	Ensaladilla rusa		Huevo poché, pan cristal	8,5	sí	Russian salad	Poached egg, crystal bread	
-Para compartir	Tosta de sardina ahumada		Tomate seco, aceite de hierbas	9,5	sí	Smoked sardine toast	Sun-dried tomato, herb oil	
-Para compartir	Gambones crujientes		Panko, mayonesa cítrica	11,5	sí	Crispy prawns	Panko, citrus mayonnaise	
-Para compartir	Rejos		Lima, albahaca	10,5	sí	Rejos	Lime, basil	
-Para compartir	Bacalao en tempura		Mayonesa de pimiento rojo asado	11,5	sí	Cod tempura	Roasted red pepper mayonnaise	
-Para compartir	Titaina del Cabanyal		Pan cristal tostado	9,5	sí	Titaina del Cabanyal	Toasted crystal bread	
-Para compartir	Bao de calamar crujiente		Salsa de la casa	10,5	sí	Crispy squid bao	House sauce	
-De la casa	Huevos rotos con pulpo		Patata, huevo y pulpo	14,5	sí	Broken eggs with octopus	Potato, egg and octopus	
-De la casa	Jachapuri		Receta tradicional georgiana, queso y huevo	13,5	sí	Khachapuri	Traditional Georgian recipe, cheese and egg	
-De la casa	Pinsa burrata		Burrata, tomate seco, albahaca	14,5	sí	Burrata pinsa	Burrata, sun-dried tomato, basil	
-De la casa	Steak tartar		Brioche tostado	16,5	sí	Steak tartare	Toasted brioche	
-De la casa	Crujiente de alga		Salmón, aguacate, queso crema y sriracha	12,5	sí	Seaweed crisp	Salmon, avocado, cream cheese and sriracha	
-De la casa	Foie, patata y sobrasada		Nuestra combinación de sabores	13,5	sí	Foie, potato and sobrasada	Our flavour combination	
-Burgers	Angus ahumada		Angus, scamorza ahumada, bacon, rúcula, cebolla caramelizada, brioche	15,5	sí	Smoked Angus	Angus, smoked scamorza, bacon, rocket, caramelised onion, brioche	
-Burgers	Crispy chicken		Pollo crujiente, queso, lechuga, salsa de la casa, brioche	14,5	sí	Crispy chicken	Crispy chicken, cheese, lettuce, house sauce, brioche	
-Burgers	Veggie		Burger vegetal, queso, vegetales, salsa de la casa, brioche	14	sí	Veggie	Plant-based burger, cheese, vegetables, house sauce, brioche	
-Montaditos	Secreto ibérico			5,5	sí	Iberian secreto		
-Montaditos	Presa ibérica			5,5	sí	Iberian presa		
-Montaditos	Pulpo			6,5	sí	Octopus		
-Montaditos	Foie & manzana			6	sí	Foie & apple		
-Montaditos	Escalivada & brie			5,5	sí	Escalivada & brie		
-Montaditos	Sobrasada, cabra & miel			5,5	sí	Sobrasada, goat cheese & honey		
-Montaditos	Tabla de 3 montaditos		Elige tus tres favoritos	15	sí	Board of 3 montaditos	Choose your three favourites	
-Dulce final	Torrija de brioche		Helado de leche merengada	6,5	sí	Brioche torrija	Meringued milk ice cream	
-Dulce final	Tarta de queso			6	sí	Cheesecake		
-Dulce final	Brownie		Helado de vainilla	6	sí	Brownie	Vanilla ice cream	
+Sección	Grupo	Subgrupo	Plato	Tamaño	Alérgenos	Descripción	Precio	Visible	Plato EN	Descripción EN	Alérgenos EN	Grupo EN	Subgrupo EN	Tamaño EN	Nota grupo	Nota grupo EN
+Para compartir			Torrezno de la Casa		Gluten, Lácteos	Con puré de patata y pimientos de Padrón.	13,90	sí								
+Para compartir			Bravas Crujientes		Gluten, Huevos	Con nuestra salsa brava casera.	8,50	sí								
+Para compartir			Ensaladilla Rusa de la Casa con Huevo Poché		Huevo, Pescado, Gluten	Cremosa de patata, zanahoria, guisantes y atún, con huevo poché templado y finas rebanadas de hogaza.	10,90	sí								
+Para compartir			Tosta de Sardina Ahumada		Pescado, Gluten	Sobre pan de masa madre tostado, tomate semiseco confitado, brotes de albahaca fresca y aceite de oliva virgen extra.	6,90	sí								
+Para compartir			Gambones Crujientes en Panko con Cítricos		Gluten, Crustáceo, Huevo	Colas de gambón envueltas en crujiente pan rallado japonés, con crema casera perfumada con lima, limón y naranja.	14,90	sí								
+Para compartir			Rejos Crujientes con Emulsión de Lima y Albahaca		Moluscos, Gluten, Huevo	Tiernas patas de calamar fritas, acompañadas de una crema suave y refrescante de lima fresca y albahaca.	12,90	sí								
+Para compartir			Bacalao en Tempura con Mayonesa de Pimiento Asado		Pescado, Gluten, Huevo	Crujientes bocados de bacalao en tempura ligera con mayonesa casera de pimientos rojos asados al horno.	15,90	sí								
+Para compartir			Titaina Marinera del Cabanyal		Pescado, Frutos de cáscara, Gluten	Auténtico guiso marinero con su tradicional tonyina de sorra y piñones, acompañado de pan de masa madre.	13,50	sí								
+Para compartir			Bao de Calamar Crujiente con Mayonesa Dulce-Picante		Moluscos, Gluten, Huevo, Sésamo	Pan bao relleno de calamar frito, acompañado de salsa casera sriracha, miel y sésamo tostado.	4,90	sí								
+Para compartir			Pulpo Crujiente con Parmentier de Pimentón		Moluscos, Lácteos	Pata de pulpo a la plancha terminada al fuego directo, sobre puré sedoso de patata al pimentón de la Vera.	16,90	sí								
+Para compartir			Alcachofas Confitadas con Panceta Ibérica			Corazones de alcachofa doradas a la plancha, cubiertos con finas láminas de panceta ibérica.	14,90	sí								
+Para compartir			Croqueta Cremosa de Tartufo y Parmesano (ud.)		Gluten, Lácteos, Huevo, Sulfitos	Casera infusionada con trufa negra y queso parmesano, asentada sobre reducción de vino dulce Marsala.	2,10	sí								
+Para compartir			Gilda de la Casa (ud.)		Pescado, Sulfitos	Bocado clásico marinero con aceituna gordal, piparra en vinagre y anchoa con aceite sobre cama de patatas fritas.	2,90	sí								
+De la casa			Huevos Rotos Marineros con Gulas y Jamón		Huevo, Pescado, Gluten	Gulas salteadas al ajillo sobre patatas pajas, coronada con huevo frito y crujiente de jamón.	14,50	sí								
+De la casa			Jachapuri: Pan Relleno de Quesos y Huevo		Gluten, Lácteos, Huevo	Tradicional barca de pan georgiana horneada al momento, rellena de mezcla fundente de quesos, yema de huevo y mantequilla.	15,90	sí								
+De la casa			Pinsa de la Burrata con Cecina de León y Trufa		Gluten, Lácteos, Soja	Masa romana extra crujiente coronada en frío con stracciatella, finas lonchas de cecina de León y aceite de trufa negra.	16,50	sí								
+De la casa			Steak Tartar con Brioche Tostado		Mostaza, Huevo, Pescado, Gluten, Lácteos, Soja	Solomillo de vaca cortado finamente a cuchillo, aliñado al momento con su receta clásica, con lingotes de brioche a la plancha.	18,90	sí								
+De la casa			Lingotes de Patata Confitada con Sobrasada y Foie			Lingote de patata crujiente sobre base de sobrasada templada, con medallones de foie fresco a la plancha caramelizados.	17,50	sí								
+Burgers			Burger Angus y Escamorza Ahumada		Gluten, Lácteos, Huevo	Carne de Angus, queso escamorza fundido, bacon crujiente, cebolla caramelizada, rúcula fresca y pan brioche.	15,90	sí								
+Burgers			Crispy Potato Chicken		Gluten, Lácteos, Huevo	Pollo extra crujiente, queso fundido, lechuga fresca y salsa secreta de la casa en tierno pan de patata.	13,50	sí								
+Burgers			The Veggie Bun		Gluten, Lácteos, Huevo	Hamburguesa de verdura, queso fundido, vegetales variados y salsa de la casa en pan de sésamo tostado.	12,90	sí								
+Montaditos			Secreto con Padrón y Miel		Gluten, Huevo, Frutos de cáscara	Secreto ibérico, pimientos de Padrón y alioli de miel sobre pan de semillas.	5,20	sí								
+Montaditos			Montadito Mallorquín		Gluten, Lácteos, Frutos de cáscara	Sobrasada artesana templada, medallón de queso de cabra caramelizado, hilos de miel y nueces en pan artesanal.	5,20	sí								
+Montaditos			Montadito de Foie y Manzana		Gluten, Lácteos, Sulfitos	Medallón de foie fresco a la plancha, manzana caramelizada, escamas de sal negra y reducción de Pedro Ximénez.	6,50	sí								
+Montaditos			Montadito Nórdico		Gluten, Lácteos, Pescado	Salmón ahumado sobre base de queso crema, láminas de aguacate y un toque de eneldo fresco en pan de cristal.	5,20	sí								
+Montaditos			La Trilogía de Montaditos			Elige tus 3 montaditos favoritos para combinar (Máximo 1 de Foie).	14,90	sí								
+Dulce final			Tarta de Queso Horneada		Gluten, Lácteos, Huevo	Nuestra receta tradicional horneada, con una textura suave y un corazón increíblemente cremoso sobre base de galleta.	6,50	sí								
+Dulce final			Brownie Deluxe		Gluten, Lácteos, Huevo	Bizcocho casero de chocolate negro puro con trozos de galleta Oreo, servido templado con helado de vainilla.	6,20	sí								
+Dulce final			Torrija de Brioche al Licor de Naranja		Gluten, Lácteos, Huevo	Tierno pan brioche con un toque sutil de licor de naranja, junto a una bola de helado artesano de leche merengada.	6,90	sí								
+Bebidas	Cervezas	De barril	Barril 1870	Doble			2,90	sí				Beers	On tap			
+Bebidas	Cervezas	De barril	Barril 1870	Tanque			3,80	sí				Beers	On tap			
+Bebidas	Cervezas	De barril	Barril 1870	Jarra			9,90	sí				Beers	On tap			
+Bebidas	Cervezas	De barril	Barril 1870	Caña			2,40	sí				Beers	On tap			
+Bebidas	Cervezas	De barril	Barril Amstel Oro	Doble			3,00	sí				Beers	On tap			
+Bebidas	Cervezas	De barril	Barril Amstel Oro	Tanque			4,00	sí				Beers	On tap			
+Bebidas	Cervezas	De barril	Barril Amstel Oro	Jarra			10,10	sí				Beers	On tap			
+Bebidas	Cervezas	De barril	Barril Amstel Oro	Caña			2,60	sí				Beers	On tap			
+Bebidas	Cervezas	En botella	Águila sin Filtrar				3,20	sí				Beers	Bottled			
+Bebidas	Cervezas	En botella	Heineken				3,20	sí				Beers	Bottled			
+Bebidas	Cervezas	En botella	Radler				2,90	sí				Beers	Bottled			
+Bebidas	Cervezas	En botella	Amstel				2,90	sí				Beers	Bottled			
+Bebidas	Cervezas	En botella	Águila				2,90	sí				Beers	Bottled			
+Bebidas	Cervezas	En botella	Heineken Sin Alcohol				3,20	sí				Beers	Bottled			
+Bebidas	Cervezas	En botella	Amstel Oro Sin Alcohol				3,20	sí				Beers	Bottled			
+Bebidas	Agua y refrescos		Agua con Gas				2,60	sí				Water and soft drinks				
+Bebidas	Agua y refrescos		Agua Natural				1,80	sí				Water and soft drinks				
+Bebidas	Agua y refrescos		Coca-Cola				2,80	sí				Water and soft drinks				
+Bebidas	Agua y refrescos		Coca-Cola Zero				2,80	sí				Water and soft drinks				
+Bebidas	Agua y refrescos		Aquarius (Limón / Naranja)				2,80	sí				Water and soft drinks				
+Bebidas	Agua y refrescos		Fanta				2,80	sí				Water and soft drinks				
+Bebidas	Agua y refrescos		Nestea				2,80	sí				Water and soft drinks				
+Bebidas	Agua y refrescos		Tónica				2,50	sí				Water and soft drinks				
+Bebidas	Cafés e infusiones		Café Solo				1,50	sí				Coffee and infusions			Suplemento tiempo: +0,20 €	Time supplement: +0.20 €
+Bebidas	Cafés e infusiones		Cortado				1,60	sí				Coffee and infusions				
+Bebidas	Cafés e infusiones		Bombón				1,80	sí				Coffee and infusions				
+Bebidas	Cafés e infusiones		Café con Leche				2,00	sí				Coffee and infusions				
+Bebidas	Cafés e infusiones		Infusiones				2,00	sí				Coffee and infusions				
+Bebidas	Sangrías		Sangría de Vino	Copa			4,00	sí				Sangria				
+Bebidas	Sangrías		Sangría de Vino	Jarra			13,50	sí				Sangria				
+Bebidas	Sangrías		Sangría de Cava	Copa			4,00	sí				Sangria				
+Bebidas	Sangrías		Sangría de Cava	Jarra			15,00	sí				Sangria				
+Bebidas	Vinos tintos		Poda Tinto (Ribera del Duero)	Copa			3,50	sí				Red wines				
+Bebidas	Vinos tintos		Poda Tinto (Ribera del Duero)	Botella			16,00	sí				Red wines				
+Bebidas	Vinos tintos		Ceramic Tinto	Copa			3,50	sí				Red wines				
+Bebidas	Vinos tintos		Ceramic Tinto	Botella			16,00	sí				Red wines				
+Bebidas	Vinos tintos		Ramón Bilbao Tinto	Copa			3,50	sí				Red wines				
+Bebidas	Vinos tintos		Ramón Bilbao Tinto	Botella			20,00	sí				Red wines				
+Bebidas	Vinos tintos		Protos Tinto	Copa			3,50	sí				Red wines				
+Bebidas	Vinos tintos		Protos Tinto	Botella			22,00	sí				Red wines				
+Bebidas	Vinos tintos		Finca del Mar Tinto	Copa			3,00	sí				Red wines				
+Bebidas	Vinos tintos		Finca del Mar Tinto	Botella			12,50	sí				Red wines				
+Bebidas	Vinos blancos y cava		Poda Blanco (Albariño)	Copa			3,50	sí				White wines and cava				
+Bebidas	Vinos blancos y cava		Poda Blanco (Albariño)	Botella			18,00	sí				White wines and cava				
+Bebidas	Vinos blancos y cava		Protos Blanco	Copa			3,50	sí				White wines and cava				
+Bebidas	Vinos blancos y cava		Protos Blanco	Botella			22,00	sí				White wines and cava				
+Bebidas	Vinos blancos y cava		Finca del Mar Blanco	Copa			3,00	sí				White wines and cava				
+Bebidas	Vinos blancos y cava		Finca del Mar Blanco	Botella			12,50	sí				White wines and cava				
+Bebidas	Vinos blancos y cava		Cava Valenciano	Copa			-	sí				White wines and cava				
+Bebidas	Vinos blancos y cava		Cava Valenciano	Botella			13,00	sí				White wines and cava				
+Bebidas	Combinados y licores	Whisky	Charles House	Chupito			2,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Charles House	Copa			4,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	JB	Chupito			2,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	JB	Copa			5,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Cutty Sark	Chupito			2,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Cutty Sark	Copa			5,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Johnnie Walker	Chupito			3,00	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Johnnie Walker	Copa			6,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Chivas	Chupito			4,00	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Chivas	Copa			8,00	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Jack Daniel's	Chupito			3,00	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Whisky	Jack Daniel's	Copa			6,50	sí				Spirits	Whisky			
+Bebidas	Combinados y licores	Ron/Cubatas	Barceló				8,00	sí				Spirits	Rum and mixers			
+Bebidas	Combinados y licores	Ron/Cubatas	Brugal				8,00	sí				Spirits	Rum and mixers			
+Bebidas	Combinados y licores	Ron/Cubatas	Bacardí				7,00	sí				Spirits	Rum and mixers			
+Bebidas	Combinados y licores	Ron/Cubatas	Negrita				Consultar	sí				Spirits	Rum and mixers			
+Bebidas	Combinados y licores	Ginebras	Seagram's				8,00	sí				Spirits	Gins			
+Bebidas	Combinados y licores	Ginebras	Beefeater				8,00	sí				Spirits	Gins			
+Bebidas	Combinados y licores	Ginebras	Puerto de Indias				8,50	sí				Spirits	Gins			
+Bebidas	Combinados y licores	Ginebras	Martin Miller's				10,00	sí				Spirits	Gins			
+Bebidas	Combinados y licores	Otros licores y anís	Vodka	Chupito			3,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Vodka	Copa			7,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Orujo Blanco	Chupito			2,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Orujo Blanco	Copa			4,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Orujo Hierbas	Chupito			2,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Orujo Hierbas	Copa			4,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Tequila (chupito)				3,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Cassalla (chupito)				2,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Crema de Orujo (chupito)				2,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Crema de Arroz (chupito)				2,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Baileys	Chupito			2,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Baileys	Copa			5,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Pacharán	Chupito			2,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Pacharán	Copa			3,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Magno (Coñac)	Chupito			2,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Magno (Coñac)	Copa			4,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Terry (Coñac)	Chupito			2,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Terry (Coñac)	Copa			4,00	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Limoncello	Chupito			2,50	sí				Spirits	Other spirits and anise			
+Bebidas	Combinados y licores	Otros licores y anís	Limoncello	Copa			4,00	sí				Spirits	Other spirits and anise			
+Bebidas	Cócteles y aperitivos		Aperol Spritz				6,50	sí				Cocktails and aperitifs				
+Bebidas	Cócteles y aperitivos		Mojito				7,00	sí				Cocktails and aperitifs				
+Bebidas	Cócteles y aperitivos		Piña Colada				7,00	sí				Cocktails and aperitifs				
+Bebidas	Cócteles y aperitivos		Vermut Blanco (Martini)				4,50	sí				Cocktails and aperitifs				
+Bebidas	Cócteles y aperitivos		Vermut Tinto (Martini)				4,50	sí				Cocktails and aperitifs				

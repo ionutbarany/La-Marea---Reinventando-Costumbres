@@ -208,6 +208,57 @@ a, button {
   font-size: 0.9rem;
 }
 
+/* Títulos dentro de una sección, y varias líneas de tamaño */
+.menu-group {
+  padding-top: 22px;
+}
+.menu-group:first-child {
+  padding-top: 18px;
+}
+.menu-subgroup {
+  padding-top: 14px;
+}
+.menu-group__title,
+.menu-subgroup__title {
+  margin: 0;
+  font-family: var(--font-title);
+  letter-spacing: 0.02em;
+}
+.menu-group__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.menu-subgroup__title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.menu-group__note {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+.menu-subgroups,
+.dish__sizes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dish__sizes {
+  margin-top: 6px;
+}
+.dish__size {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 2px 0;
+}
+.dish__size-name {
+  flex: 1;
+  min-width: 0;
+  padding-left: 12px;
+}
+
 /* Acciones en inicio (información y reseña) */
 .home-actions {
   display: grid;
