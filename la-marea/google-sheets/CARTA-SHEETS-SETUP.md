@@ -16,7 +16,7 @@
 | Para compartir | Torrezno de la casa | gluten, lácteos | Puré de patata... | 12.5 | sí | House torrezno | Potato purée... | gluten, dairy |
 
 - Puedes copiar y pegar desde `plantilla-carta.tsv` (archivo de esta carpeta) en la celda A1.
-- **Alérgenos**: texto libre (ej. `gluten, lácteos, huevo`). Si lo dejas vacío, en la web no se muestra nada junto al nombre.
+- **Alérgenos**: uno o varios nombres de la lista de 14 (`Gluten, Huevo, Lácteos`), separados por coma. En la web se ven como iconos debajo del plato, y al final de la sección hay una leyenda. Si lo dejas vacío, ese plato no muestra alérgenos. La leyenda en inglés sale sola: no hace falta rellenar **Alérgenos EN** para los iconos.
 - **Visible**: `sí` (o vacío) = se muestra en la web. `no` = oculto pero la fila sigue en la hoja. Para quitar del todo, borra la fila.
 - **Plato EN / Descripción EN / Alérgenos EN**: opcionales. La web tiene botón **EN**; si una celda en inglés está vacía, se muestra el texto en español. Puedes ocultar estas columnas en Sheets si molestan en pantalla.
 
@@ -129,7 +129,7 @@ Tras el deploy, recarga la carta en el móvil. Cambia un precio en Sheets, esper
 |--------|--------|
 | Cambiar precio | **Carta** → **Precio** |
 | Cambiar nombre o descripción del plato | **Carta** → **Plato** / **Descripción** |
-| Indicar alérgenos (junto al nombre en la web) | **Carta** → **Alérgenos** |
+| Indicar alérgenos (iconos en la web) | **Carta** → **Alérgenos** |
 | Ocultar un plato temporalmente | **Carta** → **Visible** → `no` |
 | Quitar un plato para siempre | **Carta** → borrar la fila |
 | Añadir plato | **Carta** → nueva fila (sección del desplegable, **Visible** = sí) |

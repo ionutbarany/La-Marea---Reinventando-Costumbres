@@ -30,7 +30,9 @@ const UI = {
     phTelefono: "[+34 000 000 000]",
     redInstagram: "Instagram",
     redFacebook: "Facebook",
-    redTiktok: "TikTok"
+    redTiktok: "TikTok",
+    leyendaAlergenos: "Alérgenos",
+    alergenosDe: "Alérgenos: "
   },
   en: {
     navSecciones: "Menu sections",
@@ -54,7 +56,9 @@ const UI = {
     phTelefono: "[+34 000 000 000]",
     redInstagram: "Instagram",
     redFacebook: "Facebook",
-    redTiktok: "TikTok"
+    redTiktok: "TikTok",
+    leyendaAlergenos: "Allergens",
+    alergenosDe: "Allergens: "
   }
 };
 
@@ -69,6 +73,7 @@ const sectionTitle = document.getElementById("section-title");
 const sectionNote = document.getElementById("section-note");
 const sectionEmpty = document.getElementById("section-empty");
 const dishList = document.getElementById("dish-list");
+const allergenLegend = document.getElementById("allergen-legend");
 const cartaStatus = document.getElementById("carta-status");
 const navSecciones = document.getElementById("nav-secciones");
 const topbarBack = document.querySelector(".topbar__back");
@@ -360,6 +365,170 @@ function pintarInicio() {
   });
 }
 
+// Iconos tal cual los archivos de img/alergenos: el círculo y el nombre ya van dentro.
+const ALERGENOS = [
+  { id: "gluten", es: "Gluten", en: "Gluten", icono: "img/alergenos/gluten.svg", alias: ["gluten", "cereales", "trigo"] },
+  { id: "crustaceos", es: "Crustáceos", en: "Crustaceans", icono: "img/alergenos/crustaceos.svg", alias: ["crustaceo", "crustaceos", "crustacean", "crustaceans"] },
+  { id: "huevo", es: "Huevo", en: "Egg", icono: "img/alergenos/huevo.svg", alias: ["huevo", "huevos", "egg", "eggs"] },
+  { id: "pescado", es: "Pescado", en: "Fish", icono: "img/alergenos/pescado.svg", alias: ["pescado", "fish"] },
+  { id: "cacahuete", es: "Cacahuete", en: "Peanuts", icono: "img/alergenos/cacahuete.svg", alias: ["cacahuete", "cacahuetes", "mani", "peanut", "peanuts"] },
+  { id: "soja", es: "Soja", en: "Soy", icono: "img/alergenos/soja.svg", alias: ["soja", "soya", "soy", "soybean", "soybeans"] },
+  { id: "lacteos", es: "Lácteos", en: "Milk", icono: "img/alergenos/lacteos.svg", alias: ["lacteos", "lacteo", "leche", "milk", "dairy"] },
+  { id: "frutos", es: "Frutos de cáscara", en: "Tree nuts", icono: "img/alergenos/frutos.svg", alias: ["frutos de cascara", "frutos secos", "tree nuts"] },
+  { id: "apio", es: "Apio", en: "Celery", icono: "img/alergenos/apio.svg", alias: ["apio", "celery"] },
+  { id: "mostaza", es: "Mostaza", en: "Mustard", icono: "img/alergenos/mostaza.svg", alias: ["mostaza", "mustard"] },
+  { id: "sesamo", es: "Sésamo", en: "Sesame", icono: "img/alergenos/sesamo.svg", alias: ["sesamo", "sesame", "sesame seeds"] },
+  { id: "sulfitos", es: "Sulfitos", en: "Sulphites", icono: "img/alergenos/sulfitos.svg", alias: ["sulfitos", "sulfito", "sulfites", "sulphites", "so2", "dioxido de azufre", "sulfur dioxide", "sulphur dioxide"] },
+  { id: "altramuces", es: "Altramuces", en: "Lupin", icono: "img/alergenos/altramuces.svg", alias: ["altramuces", "altramuz", "lupino", "lupin", "lupins", "lupine"] },
+  { id: "moluscos", es: "Moluscos", en: "Molluscs", icono: "img/alergenos/moluscos.svg", alias: ["molusco", "moluscos", "mollusc", "molluscs", "mollusk", "mollusks"] }
+];
+
+const ALERGENO_POR_CLAVE = {};
+ALERGENOS.forEach(function (item) {
+  item.alias.forEach(function (alias) {
+    ALERGENO_POR_CLAVE[claveAlergeno(alias)] = item;
+  });
+});
+
+function claveAlergeno(texto) {
+  return String(texto)
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[.]/g, "")
+    .replace(/\s+/g, " ");
+}
+
+function nombreAlergeno(item) {
+  return idioma === "en" ? item.en : item.es;
+}
+
+function textoAlergenosPlato(plato) {
+  if (!plato) return "";
+  if (typeof plato.alergenos === "string" && plato.alergenos.trim()) return plato.alergenos;
+  if (typeof plato.alergenosEn === "string") return plato.alergenosEn;
+  return "";
+}
+
+function interpretarAlergenos(plato) {
+  const partes = textoAlergenosPlato(plato)
+    .split(/[,;]|\s+y\s+/i)
+    .map(function (parte) { return parte.trim(); })
+    .filter(Boolean);
+  const conocidos = [];
+  const desconocidos = [];
+  const vistos = new Set();
+  partes.forEach(function (parte) {
+    const item = ALERGENO_POR_CLAVE[claveAlergeno(parte)];
+    if (!item) {
+      desconocidos.push(parte);
+      return;
+    }
+    if (vistos.has(item.id)) return;
+    vistos.add(item.id);
+    conocidos.push(item);
+  });
+  return { conocidos: conocidos, desconocidos: desconocidos };
+}
+
+function crearMarcaAlergeno(item) {
+  const marca = document.createElement("span");
+  marca.className = "allergen-icon";
+  marca.setAttribute("aria-hidden", "true");
+  const img = document.createElement("img");
+  img.src = item.icono;
+  img.alt = "";
+  img.width = 262;
+  img.height = 372;
+  marca.appendChild(img);
+  return marca;
+}
+
+function anadirAlergenos(contenedor, plato) {
+  const leido = interpretarAlergenos(plato);
+  if (!leido.conocidos.length && !leido.desconocidos.length) return;
+
+  const fila = document.createElement("span");
+  fila.className = "dish__allergens";
+  const nombres = leido.conocidos.map(nombreAlergeno).concat(leido.desconocidos);
+  const oculto = document.createElement("span");
+  oculto.className = "visually-hidden";
+  oculto.textContent = t("alergenosDe") + nombres.join(", ");
+  fila.appendChild(oculto);
+
+  leido.conocidos.forEach(function (item) {
+    fila.appendChild(crearMarcaAlergeno(item));
+  });
+  if (leido.desconocidos.length) {
+    const extra = document.createElement("span");
+    extra.className = "dish__allergen-extra";
+    extra.setAttribute("aria-hidden", "true");
+    extra.textContent = leido.desconocidos.join(", ");
+    fila.appendChild(extra);
+  }
+  contenedor.appendChild(fila);
+}
+
+function cadaPlato(nodo, fn) {
+  const platos = Array.isArray(nodo.platos) ? nodo.platos : [];
+  platos.forEach(fn);
+  const grupos = Array.isArray(nodo.grupos) ? nodo.grupos : [];
+  grupos.forEach(function (grupo) { cadaPlato(grupo, fn); });
+}
+
+function filaLeyenda(marca, nombre) {
+  const li = document.createElement("li");
+  li.className = "allergen-legend__item";
+  if (marca) li.appendChild(marca);
+  const nombreEl = document.createElement("span");
+  nombreEl.textContent = nombre;
+  li.appendChild(nombreEl);
+  return li;
+}
+
+function pintarLeyenda(seccion) {
+  if (!allergenLegend) return;
+  const ids = new Set();
+  const sueltos = [];
+  const sueltosVistos = new Set();
+  cadaPlato(seccion, function (plato) {
+    const leido = interpretarAlergenos(plato);
+    leido.conocidos.forEach(function (item) { ids.add(item.id); });
+    leido.desconocidos.forEach(function (texto) {
+      const clave = claveAlergeno(texto);
+      if (sueltosVistos.has(clave)) return;
+      sueltosVistos.add(clave);
+      sueltos.push(texto);
+    });
+  });
+
+  const presentes = ALERGENOS.filter(function (item) { return ids.has(item.id); });
+  if (!presentes.length && !sueltos.length) {
+    allergenLegend.hidden = true;
+    allergenLegend.replaceChildren();
+    return;
+  }
+
+  const titulo = document.createElement("p");
+  titulo.className = "allergen-legend__title";
+  titulo.id = "allergen-legend-title";
+  titulo.textContent = t("leyendaAlergenos");
+
+  const lista = document.createElement("ul");
+  lista.className = "allergen-legend__list";
+  lista.setAttribute("aria-labelledby", "allergen-legend-title");
+  presentes.forEach(function (item) {
+    lista.appendChild(filaLeyenda(crearMarcaAlergeno(item), nombreAlergeno(item)));
+  });
+  sueltos.forEach(function (texto) {
+    lista.appendChild(filaLeyenda(null, texto));
+  });
+
+  allergenLegend.replaceChildren(titulo, lista);
+  allergenLegend.hidden = false;
+}
+
 function crearTituloPlato(plato) {
   const titulo = document.createElement("span");
   titulo.className = "dish__title";
@@ -368,14 +537,6 @@ function crearTituloPlato(plato) {
   nombre.className = "dish__name";
   nombre.textContent = textoCampo(plato, "nombre", "nombreEn");
   titulo.appendChild(nombre);
-
-  const textoAlergenos = textoCampo(plato, "alergenos", "alergenosEn");
-  if (textoAlergenos) {
-    const alergenos = document.createElement("span");
-    alergenos.className = "dish__allergens";
-    alergenos.textContent = " · " + textoAlergenos;
-    titulo.appendChild(alergenos);
-  }
 
   return titulo;
 }
@@ -420,6 +581,7 @@ function crearPlato(plato) {
     });
     li.appendChild(lista);
     anadirDescripcion(li, plato);
+    anadirAlergenos(li, plato);
     return li;
   }
 
@@ -429,6 +591,7 @@ function crearPlato(plato) {
   fila.appendChild(precio);
   li.appendChild(fila);
   anadirDescripcion(li, plato);
+  anadirAlergenos(li, plato);
   return li;
 }
 
@@ -484,6 +647,7 @@ function pintarSeccion(seccion) {
 
   dishList.replaceChildren(...nodos);
   sectionEmpty.hidden = nodos.length > 0;
+  pintarLeyenda(seccion);
 }
 
 function mostrarVista() {
