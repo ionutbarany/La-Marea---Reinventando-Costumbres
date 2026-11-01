@@ -211,7 +211,7 @@ a, button {
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 0 1px;
-  margin-top: 6px;
+  margin-top: 4px;
   color: var(--muted);
   font-family: var(--font-body);
   font-size: 0.82rem;
@@ -223,7 +223,7 @@ a, button {
   line-height: 0;
 }
 .dish__allergens .allergen-icon {
-  width: 34px;
+  width: 26px;
 }
 .allergen-icon img {
   display: block;
@@ -258,7 +258,7 @@ a, button {
   font-size: 0.88rem;
 }
 .allergen-legend__item .allergen-icon {
-  width: 40px;
+  width: 32px;
 }
 .dish__price {
   white-space: nowrap;
