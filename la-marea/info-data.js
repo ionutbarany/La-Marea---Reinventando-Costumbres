@@ -20,13 +20,13 @@ const INFO_FALLBACK = {
     }
   ],
   direccion: {
-    linea1: "",
-    linea1En: "",
-    linea2: "",
-    linea2En: "",
+    linea1: "Calle Asturias 1 ",
+    linea1En: "Calle Asturias 1",
+    linea2: "46520 Puerto de Sagunto",
+    linea2En: "46520 Puerto de Sagunto",
     mapsUrl: ""
   },
-  telefono: "",
+  telefono: "+34 643316051",
   redes: {
     instagram: { url: "" },
     facebook: { url: "" },

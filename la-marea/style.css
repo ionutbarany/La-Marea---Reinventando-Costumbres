@@ -221,6 +221,7 @@ a, button {
   display: block;
   flex: none;
   line-height: 0;
+  aspect-ratio: 262 / 372;
 }
 .dish__allergens .allergen-icon {
   width: 26px;
@@ -229,6 +230,7 @@ a, button {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 262 / 372;
 }
 .dish__allergen-extra {
   line-height: 1.3;
@@ -264,10 +266,37 @@ a, button {
   white-space: nowrap;
   font-weight: 600;
 }
+.dish__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 6px;
+}
+.dish__copy {
+  flex: 1;
+  min-width: 0;
+}
+.dish__photo {
+  flex: none;
+  width: 104px;
+  height: 72px;
+  margin-left: auto;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--sand);
+  border-radius: 10px;
+  background: var(--sand);
+}
 .dish__desc {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+.dish__detail .dish__desc {
+  margin: 0;
+}
+.dish__copy .dish__allergens {
+  margin-top: 6px;
 }
 
 /* Títulos dentro de una sección, y varias líneas de tamaño */

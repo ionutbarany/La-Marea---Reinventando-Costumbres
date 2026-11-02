@@ -2,6 +2,7 @@
 // En producción la carta suele venir de config.js + Apps Script.
 // precio: número en euros (se formatea solo en pantalla) o un texto, como "Consultar".
 // precios: varios tamaños de la misma bebida, cada uno con nombre y precio.
+// imagen: ruta opcional de la foto. Se muestra a la derecha de la descripción.
 // grupos: títulos dentro de una sección; pueden llevar nota y otros grupos.
 // Campos *En: opcionales; si faltan en inglés, la web muestra el texto en español.
 
@@ -21,7 +22,8 @@ const MENU_FALLBACK = [
         nombre: "Bravas Crujientes",
         descripcion: "Con nuestra salsa brava casera.",
         alergenos: "Gluten, Huevos",
-        precio: 8.5
+        precio: 8.5,
+        imagen: "img/platos/IMG_6826.jpeg"
       },
       {
         nombre: "Ensaladilla Rusa de la Casa con Huevo Poché",
@@ -69,7 +71,8 @@ const MENU_FALLBACK = [
         nombre: "Pulpo Crujiente con Parmentier de Pimentón",
         descripcion: "Pata de pulpo a la plancha terminada al fuego directo, sobre puré sedoso de patata al pimentón de la Vera.",
         alergenos: "Moluscos, Lácteos",
-        precio: 16.9
+        precio: 16.9,
+        imagen: "img/platos/IMG_6786.jpeg"
       },
       {
         nombre: "Alcachofas Confitadas con Panceta Ibérica",
@@ -86,7 +89,8 @@ const MENU_FALLBACK = [
         nombre: "Gilda de la Casa (ud.)",
         descripcion: "Bocado clásico marinero con aceituna gordal, piparra en vinagre y anchoa con aceite sobre cama de patatas fritas.",
         alergenos: "Pescado, Sulfitos",
-        precio: 2.9
+        precio: 2.9,
+        imagen: "img/platos/IMG_6824.jpeg"
       }
     ]
   },
@@ -160,13 +164,15 @@ const MENU_FALLBACK = [
         nombre: "Secreto con Padrón y Miel",
         descripcion: "Secreto ibérico, pimientos de Padrón y alioli de miel sobre pan de semillas.",
         alergenos: "Gluten, Huevo, Frutos de cáscara",
-        precio: 5.2
+        precio: 5.2,
+        imagen: "img/platos/IMG_6780.jpeg"
       },
       {
         nombre: "Montadito Mallorquín",
         descripcion: "Sobrasada artesana templada, medallón de queso de cabra caramelizado, hilos de miel y nueces en pan artesanal.",
         alergenos: "Gluten, Lácteos, Frutos de cáscara",
-        precio: 5.2
+        precio: 5.2,
+        imagen: "img/platos/IMG_6820.jpeg"
       },
       {
         nombre: "Montadito de Foie y Manzana",
@@ -178,7 +184,8 @@ const MENU_FALLBACK = [
         nombre: "Montadito Nórdico",
         descripcion: "Salmón ahumado sobre base de queso crema, láminas de aguacate y un toque de eneldo fresco en pan de cristal.",
         alergenos: "Gluten, Lácteos, Pescado",
-        precio: 5.2
+        precio: 5.2,
+        imagen: "img/platos/IMG_6789.jpeg"
       },
       {
         nombre: "La Trilogía de Montaditos",

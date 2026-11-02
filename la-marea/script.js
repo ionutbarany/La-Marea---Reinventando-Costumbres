@@ -432,15 +432,27 @@ function interpretarAlergenos(plato) {
   return { conocidos: conocidos, desconocidos: desconocidos };
 }
 
+function vigilarImagen(img) {
+  img.addEventListener("error", function () {
+    if (img.dataset.reintento) return;
+    const src = img.getAttribute("src");
+    if (!src) return;
+    img.dataset.reintento = "1";
+    const sep = src.indexOf("?") >= 0 ? "&" : "?";
+    img.src = src + sep + "reintento=1";
+  });
+}
+
 function crearMarcaAlergeno(item) {
   const marca = document.createElement("span");
   marca.className = "allergen-icon";
   marca.setAttribute("aria-hidden", "true");
   const img = document.createElement("img");
-  img.src = item.icono;
   img.alt = "";
   img.width = 262;
   img.height = 372;
+  vigilarImagen(img);
+  img.src = item.icono;
   marca.appendChild(img);
   return marca;
 }
@@ -525,8 +537,8 @@ function pintarLeyenda(seccion) {
     lista.appendChild(filaLeyenda(null, texto));
   });
 
-  allergenLegend.replaceChildren(titulo, lista);
   allergenLegend.hidden = false;
+  allergenLegend.replaceChildren(titulo, lista);
 }
 
 function crearTituloPlato(plato) {
@@ -541,13 +553,65 @@ function crearTituloPlato(plato) {
   return titulo;
 }
 
-function anadirDescripcion(li, plato) {
+function crearDescripcion(plato) {
   const descripcion = textoCampo(plato, "descripcion", "descripcionEn");
-  if (!descripcion) return;
+  if (!descripcion) return null;
   const desc = document.createElement("p");
   desc.className = "dish__desc";
   desc.textContent = descripcion;
-  li.appendChild(desc);
+  return desc;
+}
+
+function crearFoto(plato) {
+  const src = typeof plato.imagen === "string" ? plato.imagen.trim() : "";
+  if (!src) return null;
+  const foto = document.createElement("img");
+  foto.className = "dish__photo";
+  foto.alt = textoCampo(plato, "nombre", "nombreEn");
+  foto.width = 104;
+  foto.height = 72;
+  vigilarImagen(foto);
+  foto.src = src;
+  return foto;
+}
+
+function anadirDetalle(li, plato) {
+  const desc = crearDescripcion(plato);
+  const foto = crearFoto(plato);
+  if (!foto) {
+    if (desc) li.appendChild(desc);
+    anadirAlergenos(li, plato);
+    return;
+  }
+
+  const fila = document.createElement("div");
+  fila.className = "dish__detail";
+  const texto = document.createElement("div");
+  texto.className = "dish__copy";
+  if (desc) texto.appendChild(desc);
+  anadirAlergenos(texto, plato);
+  fila.append(texto, foto);
+  li.appendChild(fila);
+}
+
+// La carta en línea todavía no trae fotos. Estas se asignan por nombre del plato.
+const FOTOS_PLATOS = {
+  "secreto con padron y miel": "img/platos/IMG_6780.jpeg",
+  "bravas crujientes": "img/platos/IMG_6826.jpeg",
+  "pulpo crujiente con parmentier de pimenton": "img/platos/IMG_6786.jpeg",
+  "montadito nordico": "img/platos/IMG_6789.jpeg",
+  "montadito mallorquin": "img/platos/IMG_6820.jpeg",
+  "gilda de la casa (ud)": "img/platos/IMG_6824.jpeg"
+};
+
+function aplicarFotosLocales(menu) {
+  menu.forEach(function (seccion) {
+    cadaPlato(seccion, function (plato) {
+      if (typeof plato.imagen === "string" && plato.imagen.trim()) return;
+      const foto = FOTOS_PLATOS[claveAlergeno(plato.nombre || "")];
+      if (foto) plato.imagen = foto;
+    });
+  });
 }
 
 function crearPlato(plato) {
@@ -580,8 +644,7 @@ function crearPlato(plato) {
       lista.appendChild(item);
     });
     li.appendChild(lista);
-    anadirDescripcion(li, plato);
-    anadirAlergenos(li, plato);
+    anadirDetalle(li, plato);
     return li;
   }
 
@@ -590,8 +653,7 @@ function crearPlato(plato) {
   precio.textContent = textoPrecio(plato.precio);
   fila.appendChild(precio);
   li.appendChild(fila);
-  anadirDescripcion(li, plato);
-  anadirAlergenos(li, plato);
+  anadirDetalle(li, plato);
   return li;
 }
 
@@ -662,10 +724,10 @@ function mostrarVista() {
     viewSection.hidden = true;
     if (viewInfo) viewInfo.hidden = false;
   } else if (seccion) {
-    pintarSeccion(seccion);
     viewHome.hidden = true;
     if (viewInfo) viewInfo.hidden = true;
     viewSection.hidden = false;
+    pintarSeccion(seccion);
   } else {
     viewSection.hidden = true;
     if (viewInfo) viewInfo.hidden = true;
@@ -715,6 +777,7 @@ function platoValido(p) {
   if (!campoOpcionalString(p.nombreEn)) return false;
   if (!campoOpcionalString(p.descripcionEn)) return false;
   if (!campoOpcionalString(p.alergenosEn)) return false;
+  if (!campoOpcionalString(p.imagen)) return false;
   if (Array.isArray(p.precios)) {
     return p.precios.length > 0 && p.precios.every(tamanoValido);
   }
@@ -756,6 +819,7 @@ function menuValido(datos) {
 
 function iniciarApp() {
   appLista = true;
+  aplicarFotosLocales(MENU);
   pintarInicio();
   actualizarEnlacesHome();
   pintarInfo();
