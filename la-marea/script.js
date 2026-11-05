@@ -31,7 +31,8 @@ const UI = {
     redInstagram: "Instagram",
     redFacebook: "Facebook",
     redTiktok: "TikTok",
-    alergenosDe: "Alérgenos: "
+    alergenosDe: "Alérgenos: ",
+    navGrupos: "Grupos de esta sección"
   },
   en: {
     navSecciones: "Menu sections",
@@ -56,7 +57,8 @@ const UI = {
     redInstagram: "Instagram",
     redFacebook: "Facebook",
     redTiktok: "TikTok",
-    alergenosDe: "Allergens: "
+    alergenosDe: "Allergens: ",
+    navGrupos: "Groups in this section"
   }
 };
 
@@ -73,6 +75,7 @@ const sectionEmpty = document.getElementById("section-empty");
 const dishList = document.getElementById("dish-list");
 const cartaStatus = document.getElementById("carta-status");
 const navSecciones = document.getElementById("nav-secciones");
+const groupNav = document.getElementById("group-nav");
 const topbarBack = document.querySelector(".topbar__back");
 const langToggle = document.getElementById("lang-toggle");
 
@@ -602,7 +605,46 @@ function crearPlato(plato) {
   return li;
 }
 
-function crearGrupo(grupo, nivel) {
+function irAGrupo(destino) {
+  const sticky = document.querySelector(".section-sticky");
+  const alto = sticky ? sticky.getBoundingClientRect().height : 0;
+  const top = destino.getBoundingClientRect().top + window.scrollY - alto - 8;
+  const suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: Math.max(0, top), behavior: suave ? "smooth" : "auto" });
+  destino.focus({ preventScroll: true });
+}
+
+function pintarAtajos(grupos) {
+  if (!groupNav) return;
+  groupNav.replaceChildren();
+  if (grupos.length < 2) {
+    groupNav.hidden = true;
+    return;
+  }
+
+  groupNav.hidden = false;
+  groupNav.setAttribute("aria-label", t("navGrupos"));
+
+  const lista = document.createElement("ul");
+  lista.className = "group-nav__list";
+  grupos.forEach((grupo, i) => {
+    const item = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "group-nav__btn";
+    btn.textContent = textoCampo(grupo, "nombre", "nombreEn");
+    btn.setAttribute("aria-controls", "grupo-" + i);
+    btn.addEventListener("click", () => {
+      const destino = document.getElementById("grupo-" + i);
+      if (destino) irAGrupo(destino);
+    });
+    item.appendChild(btn);
+    lista.appendChild(item);
+  });
+  groupNav.appendChild(lista);
+}
+
+function crearGrupo(grupo, nivel, indice) {
   const li = document.createElement("li");
   const anidado = nivel > 1;
   li.className = anidado ? "menu-subgroup" : "menu-group";
@@ -610,6 +652,10 @@ function crearGrupo(grupo, nivel) {
   const titulo = document.createElement(anidado ? "h4" : "h3");
   titulo.className = anidado ? "menu-subgroup__title" : "menu-group__title";
   titulo.textContent = textoCampo(grupo, "nombre", "nombreEn");
+  if (!anidado) {
+    titulo.id = "grupo-" + indice;
+    titulo.tabIndex = -1;
+  }
   li.appendChild(titulo);
 
   const nota = textoCampo(grupo, "nota", "notaEn");
@@ -649,7 +695,8 @@ function pintarSeccion(seccion) {
   const nodos = [];
   const grupos = Array.isArray(seccion.grupos) ? seccion.grupos : [];
   const platos = Array.isArray(seccion.platos) ? seccion.platos : [];
-  grupos.forEach((grupo) => nodos.push(crearGrupo(grupo, 1)));
+  pintarAtajos(grupos);
+  grupos.forEach((grupo, i) => nodos.push(crearGrupo(grupo, 1, i)));
   platos.forEach((plato) => nodos.push(crearPlato(plato)));
 
   dishList.replaceChildren(...nodos);

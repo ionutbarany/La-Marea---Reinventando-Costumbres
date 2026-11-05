@@ -132,18 +132,57 @@ a, button {
 .section-link:focus { outline: none; }
 .section-link:focus-visible { outline: 3px solid var(--sand); outline-offset: 2px; }
 
-/* Barra superior de una sección */
-.topbar {
+/* Barra superior de una sección, y atajos a los grupos */
+.section-sticky {
   position: sticky;
   top: 0;
   z-index: 10;
+  margin: 0 -16px;
+  background: var(--cream);
+}
+.topbar {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 0 -16px;
   padding: 14px 16px;
   background: var(--navy);
   color: var(--cream);
+}
+.group-nav {
+  padding: 10px 0 12px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  background: var(--cream);
+  border-bottom: 1px solid var(--sand);
+  scrollbar-width: none;
+}
+.group-nav::-webkit-scrollbar { display: none; }
+.group-nav__list {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  margin: 0;
+  padding: 0 16px;
+  list-style: none;
+}
+.group-nav__btn {
+  padding: 8px 14px;
+  border: 1.5px solid var(--navy);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--navy);
+  font-family: var(--font-title);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.group-nav__btn:focus { outline: none; }
+.group-nav__btn:focus-visible {
+  outline: 2px solid var(--sand);
+  outline-offset: 2px;
 }
 .topbar__back {
   display: grid;
@@ -274,13 +313,13 @@ a, button {
 
 /* Títulos dentro de una sección, y varias líneas de tamaño */
 .menu-group {
-  padding-top: 22px;
+  padding-top: 32px;
 }
 .menu-group:first-child {
   padding-top: 18px;
 }
 .menu-subgroup {
-  padding-top: 14px;
+  padding-top: 16px;
 }
 .menu-group__title,
 .menu-subgroup__title {
@@ -289,12 +328,14 @@ a, button {
   letter-spacing: 0.02em;
 }
 .menu-group__title {
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   font-weight: 700;
 }
+.menu-group__title:focus { outline: none; }
 .menu-subgroup__title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: var(--navy-soft);
 }
 .menu-group__note {
   margin: 4px 0 0;
