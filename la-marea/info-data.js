@@ -6,17 +6,17 @@ const INFO_FALLBACK = {
     {
       etiqueta: "Lunes a jueves",
       etiquetaEn: "Monday to Thursday",
-      horas: ""
+      horas: "10:00 - 22:00"
     },
     {
       etiqueta: "Viernes y sábado",
       etiquetaEn: "Friday and Saturday",
-      horas: ""
+      horas: "10:00 - 23:00"
     },
     {
       etiqueta: "Domingo",
       etiquetaEn: "Sunday",
-      horas: ""
+      horas: "10:00 - 22:00"
     }
   ],
   direccion: {
@@ -24,7 +24,7 @@ const INFO_FALLBACK = {
     linea1En: "Calle Asturias 1",
     linea2: "46520 Puerto de Sagunto",
     linea2En: "46520 Puerto de Sagunto",
-    mapsUrl: ""
+    mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=La+Marea+Reinventando+Costumbres"
   },
   telefono: "+34 643316051",
   redes: {
@@ -32,5 +32,5 @@ const INFO_FALLBACK = {
     facebook: { url: "" },
     tiktok: { url: "" }
   },
-  resenaUrl: ""
+  resenaUrl: "https://www.google.com/maps/search/?api=1&query=La+Marea+Reinventando+Costumbres"
 };

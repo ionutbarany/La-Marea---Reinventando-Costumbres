@@ -16,7 +16,7 @@
 | Para compartir | Torrezno de la casa | gluten, lácteos | Puré de patata... | 12.5 | sí | House torrezno | Potato purée... | gluten, dairy |
 
 - Puedes copiar y pegar desde `plantilla-carta.tsv` (archivo de esta carpeta) en la celda A1.
-- **Alérgenos**: uno o varios nombres de la lista de 14 (`Gluten, Huevo, Lácteos`), separados por coma. En la web se ven como iconos debajo del plato, y al final de la sección hay una leyenda. Si lo dejas vacío, ese plato no muestra alérgenos. La leyenda en inglés sale sola: no hace falta rellenar **Alérgenos EN** para los iconos.
+- **Alérgenos**: uno o varios nombres de la lista de 14 (`Gluten, Huevo, Lácteos`), separados por coma. En la web se ven como iconos debajo del plato. Si lo dejas vacío, ese plato no muestra alérgenos. No hace falta rellenar **Alérgenos EN** para los iconos.
 - **Visible**: `sí` (o vacío) = se muestra en la web. `no` = oculto pero la fila sigue en la hoja. Para quitar del todo, borra la fila.
 - **Plato EN / Descripción EN / Alérgenos EN**: opcionales. La web tiene botón **EN**; si una celda en inglés está vacía, se muestra el texto en español. Puedes ocultar estas columnas en Sheets si molestan en pantalla.
 

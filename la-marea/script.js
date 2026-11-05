@@ -31,7 +31,6 @@ const UI = {
     redInstagram: "Instagram",
     redFacebook: "Facebook",
     redTiktok: "TikTok",
-    leyendaAlergenos: "Alérgenos",
     alergenosDe: "Alérgenos: "
   },
   en: {
@@ -57,7 +56,6 @@ const UI = {
     redInstagram: "Instagram",
     redFacebook: "Facebook",
     redTiktok: "TikTok",
-    leyendaAlergenos: "Allergens",
     alergenosDe: "Allergens: "
   }
 };
@@ -73,7 +71,6 @@ const sectionTitle = document.getElementById("section-title");
 const sectionNote = document.getElementById("section-note");
 const sectionEmpty = document.getElementById("section-empty");
 const dishList = document.getElementById("dish-list");
-const allergenLegend = document.getElementById("allergen-legend");
 const cartaStatus = document.getElementById("carta-status");
 const navSecciones = document.getElementById("nav-secciones");
 const topbarBack = document.querySelector(".topbar__back");
@@ -489,58 +486,6 @@ function cadaPlato(nodo, fn) {
   grupos.forEach(function (grupo) { cadaPlato(grupo, fn); });
 }
 
-function filaLeyenda(marca, nombre) {
-  const li = document.createElement("li");
-  li.className = "allergen-legend__item";
-  if (marca) li.appendChild(marca);
-  const nombreEl = document.createElement("span");
-  nombreEl.textContent = nombre;
-  li.appendChild(nombreEl);
-  return li;
-}
-
-function pintarLeyenda(seccion) {
-  if (!allergenLegend) return;
-  const ids = new Set();
-  const sueltos = [];
-  const sueltosVistos = new Set();
-  cadaPlato(seccion, function (plato) {
-    const leido = interpretarAlergenos(plato);
-    leido.conocidos.forEach(function (item) { ids.add(item.id); });
-    leido.desconocidos.forEach(function (texto) {
-      const clave = claveAlergeno(texto);
-      if (sueltosVistos.has(clave)) return;
-      sueltosVistos.add(clave);
-      sueltos.push(texto);
-    });
-  });
-
-  const presentes = ALERGENOS.filter(function (item) { return ids.has(item.id); });
-  if (!presentes.length && !sueltos.length) {
-    allergenLegend.hidden = true;
-    allergenLegend.replaceChildren();
-    return;
-  }
-
-  const titulo = document.createElement("p");
-  titulo.className = "allergen-legend__title";
-  titulo.id = "allergen-legend-title";
-  titulo.textContent = t("leyendaAlergenos");
-
-  const lista = document.createElement("ul");
-  lista.className = "allergen-legend__list";
-  lista.setAttribute("aria-labelledby", "allergen-legend-title");
-  presentes.forEach(function (item) {
-    lista.appendChild(filaLeyenda(crearMarcaAlergeno(item), nombreAlergeno(item)));
-  });
-  sueltos.forEach(function (texto) {
-    lista.appendChild(filaLeyenda(null, texto));
-  });
-
-  allergenLegend.hidden = false;
-  allergenLegend.replaceChildren(titulo, lista);
-}
-
 function crearTituloPlato(plato) {
   const titulo = document.createElement("span");
   titulo.className = "dish__title";
@@ -709,7 +654,6 @@ function pintarSeccion(seccion) {
 
   dishList.replaceChildren(...nodos);
   sectionEmpty.hidden = nodos.length > 0;
-  pintarLeyenda(seccion);
 }
 
 function mostrarVista() {
