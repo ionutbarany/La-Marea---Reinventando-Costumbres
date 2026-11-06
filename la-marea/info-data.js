@@ -28,7 +28,7 @@ const INFO_FALLBACK = {
   },
   telefono: "+34 643316051",
   redes: {
-    instagram: { url: "" },
+    instagram: { url: "https://www.instagram.com/lamarea.gastrobar/" },
     facebook: { url: "" },
     tiktok: { url: "" }
   },
