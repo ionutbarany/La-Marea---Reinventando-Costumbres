@@ -221,7 +221,7 @@ function pintarInfo() {
       dia.textContent = textoCampo(fila, "etiqueta", "etiquetaEn");
 
       const horas = document.createElement("span");
-      const horasVal = typeof fila.horas === "string" ? fila.horas.trim() : "";
+      const horasVal = textoCampo(fila, "horas", "horasEn").trim();
       const ph = t("phHoras");
       horas.textContent = textoOPlaceholder(horasVal, ph);
       marcarPlaceholder(horas, !horasVal);
@@ -826,7 +826,8 @@ function horarioValido(datos) {
       fila &&
       typeof fila.etiqueta === "string" && fila.etiqueta.trim() !== "" &&
       typeof fila.horas === "string" && fila.horas.trim() !== "" &&
-      campoOpcionalString(fila.etiquetaEn)
+      campoOpcionalString(fila.etiquetaEn) &&
+      campoOpcionalString(fila.horasEn)
   );
 }
 
