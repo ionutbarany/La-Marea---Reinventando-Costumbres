@@ -817,6 +817,33 @@ function iniciarApp() {
   mostrarVista();
 }
 
+// El horario viene de la pestaña Info de la hoja, con una petición aparte (?info=1).
+// Si falla o no tiene el formato esperado, se queda el de info-data.js.
+function horarioValido(datos) {
+  if (!datos || !Array.isArray(datos.horario) || datos.horario.length === 0) return false;
+  return datos.horario.every(
+    (fila) =>
+      fila &&
+      typeof fila.etiqueta === "string" && fila.etiqueta.trim() !== "" &&
+      typeof fila.horas === "string" && fila.horas.trim() !== "" &&
+      campoOpcionalString(fila.etiquetaEn)
+  );
+}
+
+async function cargarHorarioRemoto(urlCarta) {
+  try {
+    const sep = urlCarta.indexOf("?") >= 0 ? "&" : "?";
+    const res = await fetch(urlCarta + sep + "info=1", { cache: "no-store" });
+    if (!res.ok) return;
+    const datos = await res.json();
+    if (!horarioValido(datos)) return;
+    INFO = Object.assign({}, INFO_FALLBACK, { horario: datos.horario });
+    if (appLista) pintarInfo();
+  } catch {
+    /* sin horario en línea: se queda el de info-data.js */
+  }
+}
+
 async function cargarCarta() {
   const url = typeof CARTA_URL === "string" ? CARTA_URL.trim() : "";
 
@@ -826,6 +853,7 @@ async function cargarCarta() {
     return;
   }
 
+  cargarHorarioRemoto(url);
   mostrarEstado(t("cargando"), "loading");
   viewHome.hidden = true;
   viewSection.hidden = true;
