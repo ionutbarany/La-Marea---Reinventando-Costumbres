@@ -831,6 +831,57 @@ function horarioValido(datos) {
   );
 }
 
+// Última carta y último horario buenos, guardados en el navegador de cada cliente.
+// Se enseñan al instante mientras llega la versión nueva, y si falla la red o el script
+// se sigue viendo lo último correcto en vez de la copia fija de menu-data.js.
+// Cada copia lleva la URL de la que salió: si cambia CARTA_URL, se ignora.
+const CARTA_GUARDADA_KEY = "la-marea-carta-v1";
+const HORARIO_GUARDADO_KEY = "la-marea-horario-v1";
+
+function leerGuardado(clave, url, campo, esValido) {
+  try {
+    const crudo = localStorage.getItem(clave);
+    if (!crudo) return null;
+    const g = JSON.parse(crudo);
+    if (!g || g.url !== url || !esValido(g[campo])) return null;
+    return g[campo];
+  } catch {
+    return null;
+  }
+}
+
+function escribirGuardado(clave, url, campo, valor) {
+  try {
+    const g = { url: url };
+    g[campo] = valor;
+    localStorage.setItem(clave, JSON.stringify(g));
+  } catch {
+    /* modo privado o almacenamiento lleno: la carta funciona igual, sin copia local */
+  }
+}
+
+// Cuando llega una carta distinta con la web ya pintada: repinta sin volver al inicio.
+function repintarCarta() {
+  if (!appLista) return;
+  aplicarFotosLocales(MENU);
+  pintarInicio();
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (!id || id === INFO_ID) return;
+  const seccion = MENU.find((s) => s.id === id);
+  if (seccion) {
+    const y = window.scrollY;
+    pintarSeccion(seccion);
+    window.scrollTo(0, y);
+  } else {
+    mostrarVista(); // la sección ya no existe: vuelve al inicio
+  }
+}
+
+function aplicarHorarioGuardado(url) {
+  const horario = leerGuardado(HORARIO_GUARDADO_KEY, url, "horario", (h) => horarioValido({ horario: h }));
+  if (horario) INFO = Object.assign({}, INFO_FALLBACK, { horario: horario });
+}
+
 async function cargarHorarioRemoto(urlCarta) {
   try {
     const sep = urlCarta.indexOf("?") >= 0 ? "&" : "?";
@@ -839,9 +890,10 @@ async function cargarHorarioRemoto(urlCarta) {
     const datos = await res.json();
     if (!horarioValido(datos)) return;
     INFO = Object.assign({}, INFO_FALLBACK, { horario: datos.horario });
+    escribirGuardado(HORARIO_GUARDADO_KEY, urlCarta, "horario", datos.horario);
     if (appLista) pintarInfo();
   } catch {
-    /* sin horario en línea: se queda el de info-data.js */
+    /* sin horario en línea: se queda el último guardado o el de info-data.js */
   }
 }
 
@@ -854,24 +906,44 @@ async function cargarCarta() {
     return;
   }
 
+  aplicarHorarioGuardado(url);
   cargarHorarioRemoto(url);
-  mostrarEstado(t("cargando"), "loading");
-  viewHome.hidden = true;
-  viewSection.hidden = true;
-  if (viewInfo) viewInfo.hidden = true;
+
+  const guardada = leerGuardado(CARTA_GUARDADA_KEY, url, "menu", (m) => menuValido(m) && m.length > 0);
+  let enPantalla = "";
+  if (guardada) {
+    MENU = guardada;
+    enPantalla = JSON.stringify(guardada);
+    iniciarApp();
+  } else {
+    mostrarEstado(t("cargando"), "loading");
+    viewHome.hidden = true;
+    viewSection.hidden = true;
+    if (viewInfo) viewInfo.hidden = true;
+  }
 
   try {
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error("HTTP " + res.status);
     const datos = await res.json();
     if (!menuValido(datos)) throw new Error("formato");
-    MENU = datos;
+    // El texto se calcula antes de iniciar la web: aplicarFotosLocales añade campos a MENU.
+    const texto = JSON.stringify(datos);
+    if (datos.length > 0) escribirGuardado(CARTA_GUARDADA_KEY, url, "menu", datos);
     mostrarEstado("", null);
-    iniciarApp();
+    if (!guardada) {
+      MENU = datos;
+      iniciarApp();
+    } else if (texto !== enPantalla) {
+      MENU = datos;
+      repintarCarta();
+    }
   } catch {
-    MENU = MENU_FALLBACK;
     mostrarEstado(t("errorCarta"), "error");
-    iniciarApp();
+    if (!guardada) {
+      MENU = MENU_FALLBACK;
+      iniciarApp();
+    }
   }
 }
 
