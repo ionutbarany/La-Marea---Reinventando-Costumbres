@@ -32,5 +32,5 @@ const INFO_FALLBACK = {
     facebook: { url: "" },
     tiktok: { url: "" }
   },
-  resenaUrl: "https://www.google.com/maps/search/?api=1&query=La+Marea+Reinventando+Costumbres"
+  resenaUrl: "https://g.page/r/Cd42wzEx0NejEBM/review"
 };

@@ -751,9 +751,18 @@ function precioValido(precio) {
   return typeof precio === "string" && precio.trim() !== "";
 }
 
+// Precios que en la hoja se escriben con texto y que tienen versión en inglés. Se comparan sin
+// mayúsculas ni tildes; cualquier otro texto (por ejemplo "-") se muestra tal cual.
+const PRECIOS_TEXTO_EN = { consultar: "Ask Us" };
+
 function textoPrecio(precio) {
   if (typeof precio === "number") return formatoPrecio().format(precio);
-  return String(precio).trim();
+  const texto = String(precio).trim();
+  if (idioma === "en") {
+    const clave = texto.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+    if (Object.prototype.hasOwnProperty.call(PRECIOS_TEXTO_EN, clave)) return PRECIOS_TEXTO_EN[clave];
+  }
+  return texto;
 }
 
 function tamanoValido(t) {
