@@ -29,7 +29,6 @@ const UI = {
     phCiudad: "[Código postal, ciudad]",
     phTelefono: "[+34 000 000 000]",
     redInstagram: "Instagram",
-    redFacebook: "Facebook",
     redTiktok: "TikTok",
     alergenosDe: "Alérgenos: ",
     navGrupos: "Grupos de esta sección"
@@ -55,7 +54,6 @@ const UI = {
     phCiudad: "[Postcode, city]",
     phTelefono: "[+34 000 000 000]",
     redInstagram: "Instagram",
-    redFacebook: "Facebook",
     redTiktok: "TikTok",
     alergenosDe: "Allergens: ",
     navGrupos: "Groups in this section"
@@ -170,14 +168,6 @@ function iconoSocial(red) {
     dot.setAttribute("r", "1");
     dot.setAttribute("fill", "currentColor");
     svg.append(rect, circle, dot);
-  } else if (red === "facebook") {
-    svg.setAttribute("fill", "currentColor");
-    const path = document.createElementNS(svgNs, "path");
-    path.setAttribute(
-      "d",
-      "M14 8h2V5h-2c-2.2 0-3.5 1.3-3.5 3.5V12H8v3h2.5v8h3v-8h2.5l.5-3H13.5V9c0-.6.4-1 1.5-1z"
-    );
-    svg.appendChild(path);
   } else {
     svg.setAttribute("fill", "currentColor");
     const path = document.createElementNS(svgNs, "path");
@@ -266,7 +256,6 @@ function pintarInfo() {
     const redes = INFO.redes || {};
     const items = [
       { id: "instagram", nombre: t("redInstagram") },
-      { id: "facebook", nombre: t("redFacebook") },
       { id: "tiktok", nombre: t("redTiktok") }
     ];
 
