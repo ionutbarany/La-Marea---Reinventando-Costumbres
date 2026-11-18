@@ -526,6 +526,10 @@ function abrirFoto(src, nombre) {
   document.body.classList.add("photo-open");
   try {
     photoViewer.showModal();
+    if (photoViewerClose && document.activeElement === photoViewerClose) {
+      photoViewerClose.blur();
+    }
+    photoViewer.focus({ preventScroll: true });
   } catch {
     document.body.classList.remove("photo-open");
   }
@@ -537,6 +541,7 @@ function cerrarFoto() {
 }
 
 function alCerrarFoto() {
+  if (photoViewerClose) photoViewerClose.blur();
   document.body.classList.remove("photo-open");
   if (photoViewerImg) {
     photoViewerImg.removeAttribute("src");
