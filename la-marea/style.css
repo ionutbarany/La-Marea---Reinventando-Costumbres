@@ -382,16 +382,23 @@ body.photo-open { overflow: hidden; }
   z-index: 1;
   top: 6px;
   right: 6px;
-  width: 34px;
-  height: 34px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: 0;
   background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
   color: var(--navy);
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
+  box-shadow: none;
+}
+.photo-viewer__close:active,
+.photo-viewer__close:hover {
+  background: transparent;
 }
 .photo-viewer__close:focus { outline: none; }
 .photo-viewer__close:focus-visible {
