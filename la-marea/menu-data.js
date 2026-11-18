@@ -33,7 +33,8 @@ const MENU_FALLBACK = [
         descripcion: "Cremosa de patata, zanahoria, guisantes y atún, con huevo poché templado y finas rebanadas de hogaza.",
         descripcionEn: "Creamy potato, carrot, pea and tuna salad, with a warm poached egg and thin slices of country loaf.",
         alergenos: "Huevo, Pescado, Gluten",
-        precio: 10.9
+        precio: 10.9,
+        imagen: "img/platos/ensaladilla-rusa.jpeg"
       },
       {
         nombre: "Tosta de Sardina Ahumada",
@@ -75,7 +76,8 @@ const MENU_FALLBACK = [
         descripcion: "Pan bao relleno de calamar frito, acompañado de salsa casera sriracha, miel y sésamo tostado.",
         descripcionEn: "Bao bun filled with fried squid, served with homemade sriracha sauce, honey and toasted sesame.",
         alergenos: "Moluscos, Gluten, Huevo, Sésamo",
-        precio: 4.9
+        precio: 4.9,
+        imagen: "img/platos/bao-calamar.jpeg"
       },
       {
         nombre: "Pulpo Crujiente con Parmentier de Pimentón",
@@ -173,7 +175,8 @@ const MENU_FALLBACK = [
         descripcion: "Hamburguesa de verdura, queso fundido, vegetales variados y salsa de la casa en pan de sésamo tostado.",
         descripcionEn: "Vegetable patty, melted cheese, assorted vegetables and house sauce in a toasted sesame bun.",
         alergenos: "Gluten, Lácteos, Huevo",
-        precio: 12.9
+        precio: 12.9,
+        imagen: "img/platos/veggie-bun.jpeg"
       }
     ]
   },
@@ -203,7 +206,8 @@ const MENU_FALLBACK = [
         descripcion: "Medallón de foie fresco a la plancha, manzana caramelizada, escamas de sal negra y reducción de Pedro Ximénez.",
         descripcionEn: "Griddled medallion of fresh foie gras, caramelised apple, black salt flakes and a Pedro Ximénez reduction.",
         alergenos: "Gluten, Lácteos, Sulfitos",
-        precio: 6.5
+        precio: 6.5,
+        imagen: "img/platos/montadito-foie.jpeg"
       },
       {
         nombre: "Montadito Nórdico",

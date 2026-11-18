@@ -31,7 +31,9 @@ const UI = {
     redInstagram: "Instagram",
     redTiktok: "TikTok",
     alergenosDe: "Alérgenos: ",
-    navGrupos: "Grupos de esta sección"
+    navGrupos: "Grupos de esta sección",
+    verFoto: "Ver foto de {nombre}",
+    cerrarFoto: "Cerrar foto"
   },
   en: {
     navSecciones: "Menu sections",
@@ -56,7 +58,9 @@ const UI = {
     redInstagram: "Instagram",
     redTiktok: "TikTok",
     alergenosDe: "Allergens: ",
-    navGrupos: "Groups in this section"
+    navGrupos: "Groups in this section",
+    verFoto: "View photo of {nombre}",
+    cerrarFoto: "Close photo"
   }
 };
 
@@ -76,6 +80,10 @@ const navSecciones = document.getElementById("nav-secciones");
 const groupNav = document.getElementById("group-nav");
 const topbarBack = document.querySelector(".topbar__back");
 const langToggle = document.getElementById("lang-toggle");
+const photoViewer = document.getElementById("photo-viewer");
+const photoViewerImg = document.getElementById("photo-viewer-img");
+const photoViewerName = document.getElementById("photo-viewer-name");
+const photoViewerClose = document.getElementById("photo-viewer-close");
 
 let MENU = [];
 let INFO = INFO_FALLBACK;
@@ -324,6 +332,7 @@ function actualizarTextosUI() {
     );
     langToggle.setAttribute("aria-pressed", enIngles ? "true" : "false");
   }
+  if (photoViewerClose) photoViewerClose.setAttribute("aria-label", t("cerrarFoto"));
 }
 
 function alternarIdioma() {
@@ -499,17 +508,66 @@ function crearDescripcion(plato) {
   return desc;
 }
 
+function etiquetaVerFoto(nombre) {
+  return t("verFoto").replace("{nombre}", nombre);
+}
+
+// mini cambia el recorte de la miniatura (object-position).
+const ENCUADRE_FOTO = {
+  "img/platos/ensaladilla-rusa.jpeg": { mini: "center 15%" }
+};
+
+function abrirFoto(src, nombre) {
+  if (!photoViewer || !photoViewerImg || !src) return;
+  photoViewerImg.alt = "";
+  photoViewerImg.src = src;
+  if (photoViewerName) photoViewerName.textContent = nombre;
+  if (photoViewer.open) return;
+  document.body.classList.add("photo-open");
+  try {
+    photoViewer.showModal();
+  } catch {
+    document.body.classList.remove("photo-open");
+  }
+}
+
+function cerrarFoto() {
+  if (!photoViewer || !photoViewer.open) return;
+  photoViewer.close();
+}
+
+function alCerrarFoto() {
+  document.body.classList.remove("photo-open");
+  if (photoViewerImg) {
+    photoViewerImg.removeAttribute("src");
+    photoViewerImg.alt = "";
+  }
+  if (photoViewerName) photoViewerName.textContent = "";
+}
+
 function crearFoto(plato) {
   const src = typeof plato.imagen === "string" ? plato.imagen.trim() : "";
   if (!src) return null;
+  const nombre = textoCampo(plato, "nombre", "nombreEn");
   const foto = document.createElement("img");
   foto.className = "dish__photo";
-  foto.alt = textoCampo(plato, "nombre", "nombreEn");
+  foto.alt = "";
   foto.width = 104;
   foto.height = 72;
   vigilarImagen(foto);
+  const ajuste = ENCUADRE_FOTO[src];
+  if (ajuste && ajuste.mini) foto.style.objectPosition = ajuste.mini;
   foto.src = src;
-  return foto;
+
+  const boton = document.createElement("button");
+  boton.type = "button";
+  boton.className = "dish__photo-btn";
+  boton.setAttribute("aria-label", etiquetaVerFoto(nombre));
+  boton.addEventListener("click", function () {
+    abrirFoto(src, nombre);
+  });
+  boton.appendChild(foto);
+  return boton;
 }
 
 function anadirDetalle(li, plato) {
@@ -538,7 +596,11 @@ const FOTOS_PLATOS = {
   "pulpo crujiente con parmentier de pimenton": "img/platos/IMG_6786.jpeg",
   "montadito nordico": "img/platos/IMG_6789.jpeg",
   "montadito mallorquin": "img/platos/IMG_6820.jpeg",
-  "gilda de la casa (ud)": "img/platos/IMG_6824.jpeg"
+  "gilda de la casa (ud)": "img/platos/IMG_6824.jpeg",
+  "ensaladilla rusa de la casa con huevo poche": "img/platos/ensaladilla-rusa.jpeg",
+  "bao de calamar crujiente con mayonesa dulce-picante": "img/platos/bao-calamar.jpeg",
+  "the veggie bun": "img/platos/veggie-bun.jpeg",
+  "montadito de foie y manzana": "img/platos/montadito-foie.jpeg"
 };
 
 function aplicarFotosLocales(menu) {
@@ -588,6 +650,24 @@ function crearPlato(plato) {
   const precio = document.createElement("span");
   precio.className = "dish__price";
   precio.textContent = textoPrecio(plato.precio);
+
+  const foto = crearFoto(plato);
+  if (foto) {
+    li.classList.add("dish--with-photo");
+    const main = document.createElement("div");
+    main.className = "dish__main";
+    main.appendChild(crearTituloPlato(plato));
+    const desc = crearDescripcion(plato);
+    if (desc) main.appendChild(desc);
+    anadirAlergenos(main, plato);
+
+    const side = document.createElement("div");
+    side.className = "dish__side";
+    side.append(precio, foto);
+    li.append(main, side);
+    return li;
+  }
+
   fila.appendChild(precio);
   li.appendChild(fila);
   anadirDetalle(li, plato);
@@ -694,6 +774,7 @@ function pintarSeccion(seccion) {
 
 function mostrarVista() {
   if (!appLista) return;
+  cerrarFoto();
 
   const id = decodeURIComponent(location.hash.slice(1));
   const seccion = MENU.find((s) => s.id === id);
@@ -861,6 +942,7 @@ function escribirGuardado(clave, url, campo, valor) {
 // Cuando llega una carta distinta con la web ya pintada: repinta sin volver al inicio.
 function repintarCarta() {
   if (!appLista) return;
+  cerrarFoto();
   aplicarFotosLocales(MENU);
   pintarInicio();
   const id = decodeURIComponent(location.hash.slice(1));
@@ -943,6 +1025,17 @@ async function cargarCarta() {
       iniciarApp();
     }
   }
+}
+
+if (photoViewer) {
+  photoViewer.addEventListener("close", alCerrarFoto);
+  photoViewer.addEventListener("click", function (e) {
+    if (e.target === photoViewer) cerrarFoto();
+  });
+}
+
+if (photoViewerClose) {
+  photoViewerClose.addEventListener("click", cerrarFoto);
 }
 
 if (langToggle) {
